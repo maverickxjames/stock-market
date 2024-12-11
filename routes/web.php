@@ -13,6 +13,7 @@ Route::get('/', function () {
 });
 
 Route::get('future', [ScriptController::class, 'future']);
+Route::get('test', [ScriptController::class, 'test']);
 
 
 Route::get('/dashboard', function () {
@@ -40,12 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [ProfileController::class, 'logout'])->name('logout');
 
 
- 
 
 
-    Route::get('/nifty50', [StockController::class, 'nifty'])->name('nifty'); 
-    Route::get('/sensex', [StockController::class, 'sensex'])->name('sensex'); 
-    Route::get('/stocks/{slug}/{id}', [StockController::class, 'niftyInner'])->name('nifty-inner'); 
+
+    Route::get('/nifty50', [StockController::class, 'nifty'])->name('nifty');
+    Route::get('/sensex', [StockController::class, 'sensex'])->name('sensex');
+    Route::get('/stocks/{slug}/{id}', [StockController::class, 'niftyInner'])->name('nifty-inner');
     Route::get('/fetch-stock-data/{id}', [StockController::class, 'fetchStockData']);
     Route::get('/fetch-nifty50-stock-data', [StockController::class, 'fetchNifty50StockData']);
     Route::get('/fetch-sensex-stock-data', [StockController::class, 'fetchSensexStockData']);
@@ -69,7 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::post('withdrawRef', [PaymentController::class, 'withdrawRef'])->name('withdrawRef');
 
 
-    
+
 });
 
 

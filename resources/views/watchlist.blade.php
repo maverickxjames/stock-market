@@ -90,7 +90,7 @@ use App\Providers\Helper;
 </head>
 
 <body>
-    
+
 
     <!--*******************
         Preloader start
@@ -1029,7 +1029,7 @@ use App\Providers\Helper;
                                             <label class="form-label">SEGMENT</label>
                                             <select id="searchable" class="form-control default-select h-auto wide"
                                                 aria-label="Default select example">
-                                                <?php 
+                                                <?php
                                                 Script::all()->each(function($script){
                                                     echo "<option value='$script->id'>$script->symbol</option>";
                                                 });
@@ -1047,7 +1047,7 @@ use App\Providers\Helper;
                                             <label class="form-label">Script</label>
                                             <select id="searchable2" class="form-control default-select h-auto wide"
                                                 aria-label="Default select example">
-                                                <?php 
+                                                <?php
                                                 Equity::orderBy('symbol','ASC')->get()->each(function($equity){
                                                     echo "<option value='$equity->id'>$equity->symbol</option>";
                                                 });
@@ -1313,7 +1313,7 @@ use App\Providers\Helper;
                                 </div>
                             </div>
                         </div>
-                        
+
                         <?php
                         } else if($script['symbol']=="MCXOPT"){
                         ?>
@@ -1463,21 +1463,23 @@ use App\Providers\Helper;
     </script>
 
 <script src="{{ asset('js/app.js') }}"></script>
-    
+
 <script>
     Echo.channel('watchlists')
 .listen('Watchlist', (event) => {
-    if (event.watchlist && event.watchlist.length > 0) {
-    var symbol = event.watchlist[0]?.trade?.metadata?.symbol || 'N/A';
-    var ltp = event.watchlist[0]?.trade?.metadata?.lastPrice || 'N/A';
-    var ch = event.watchlist[0]?.trade?.details?.preOpenMarket?.Change || 'N/A';
+//     if (event.watchlist && event.watchlist.length > 0) {
+//     var symbol = event.watchlist[0]?.trade?.metadata?.symbol || 'N/A';
+//     var ltp = event.watchlist[0]?.trade?.metadata?.lastPrice || 'N/A';
+//     var ch = event.watchlist[0]?.trade?.details?.preOpenMarket?.Change || 'N/A';
+//
+//     $('#symbol').html(symbol);
+//     $('#ltp').html(ltp);
+//     $('#ch').html(ch);
+// } else {
+//     console.error('Watchlist is empty or undefined');
+// }
 
-    $('#symbol').html(symbol);
-    $('#ltp').html(ltp);
-    $('#ch').html(ch);
-} else {
-    console.error('Watchlist is empty or undefined');
-}
+    $('#ltp').html(event.watchlist);
 
     console.log(event);
 

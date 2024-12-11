@@ -15,4 +15,14 @@ class ScriptController extends Controller
     event(new \App\Events\Watchlist($apidata));
 
     }
+
+    public function test(){
+        while(true){
+            $apidata = Helper::fluctuateNumber('24775');
+
+            event(new \App\Events\Watchlist($apidata));
+            sleep(1);
+        }
+
+    }
 }
