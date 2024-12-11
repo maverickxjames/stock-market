@@ -34,11 +34,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('wallet', [ProfileController::class, 'wallet']);
     Route::get('portfolio', [ProfileController::class, 'portfolio'])->name('portfolio');
-    Route::get('deposit', [ProfileController::class, 'deposit'])->name('deposit');
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
     Route::POST('change-password', [ProfileController::class, 'changePassword']);
     Route::post('update-profile', [ProfileController::class, 'updateProfile']);
     Route::get('logout', [ProfileController::class, 'logout'])->name('logout');
+    Route::get('deposit', [ProfileController::class, 'deposit'])->name('deposit');
+    Route::get('recharge/{txn_id}', [ProfileController::class, 'recharge'])->name('recharge');
+    Route::post('/upload-ref', [ProfileController::class, 'uploadRef'])->name('uploadRef');
 
 
     Route::get('/nifty50', [StockController::class, 'nifty'])->name('nifty'); 
