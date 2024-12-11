@@ -39,7 +39,7 @@
                 </li>
                 
                 <li>
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" onclick="window.location.href='{{ route('profile') }}'">
                         <i class="material-symbols-outlined">account_circle</i>
                         <span class="nav-text">Account</span>
                     </a>
@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" onclick="window.location.href='{{ route('deposit') }}'">
                         <i class="material-symbols-outlined">account_balance</i>
                         <span class="nav-text">Deposit Funds</span>
                     </a>
@@ -59,7 +59,7 @@
                 <li>
                     <a href="javascript:void(0);">
                         <i class="material-symbols-outlined">credit_card</i>
-                        <span class="nav-text">Withdraw Request</span>
+                        <span class="nav-text">Withdraw</span>
                     </a>
                 </li>
                 <li>

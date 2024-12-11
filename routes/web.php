@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::POST('change-password', [ProfileController::class, 'changePassword']);
     Route::post('update-profile', [ProfileController::class, 'updateProfile']);
     Route::get('logout', [ProfileController::class, 'logout'])->name('logout');
-    Route::get('deposit', [ProfileController::class, 'deposit'])->name('deposit');
-    Route::get('recharge/{txn_id}', [ProfileController::class, 'recharge'])->name('recharge');
-    Route::post('/upload-ref', [ProfileController::class, 'uploadRef'])->name('uploadRef');
+
+
+ 
 
 
     Route::get('/nifty50', [StockController::class, 'nifty'])->name('nifty'); 
@@ -62,6 +62,11 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/all-user',[AdminController::class, 'allUser'])->name("all-user");
 
     Route::post('/payment-link', [PaymentController::class, 'generatePaymentLink'])->name('payment-link');
+    Route::get('deposit', [PaymentController::class, 'deposit'])->name('deposit');
+    Route::get('recharge/{txn_id}', [PaymentController::class, 'recharge'])->name('recharge');
+    Route::post('/upload-ref', [PaymentController::class, 'uploadRef'])->name('uploadRef');
+    Route::get('withdraw', [PaymentController::class, 'withdraw'])->name('withdraw');
+    Route::post('withdrawRef', [PaymentController::class, 'withdrawRef'])->name('withdrawRef');
 
 
     
