@@ -62,6 +62,30 @@ use App\Providers\Helper;
 
 
     <style>
+        table.dataTable tbody tr,
+        table.dataTable tbody td {
+            background: transparent;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        table.dataTable tbody th,
+        table.dataTable tbody td {
+            background: transparent;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        #bid {
+            background-color: #007b17;
+            color: #ffffff;
+        }
+
+        #ask {
+            background-color: #db1b1b;
+            color: #ffffff;
+        }
+
         .button-container {
             display: flex;
             justify-content: center;
@@ -1104,6 +1128,34 @@ use App\Providers\Helper;
                             </div>
                         </div>
                     </div>
+                    <?php 
+                            $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
+
+                            if ($watchlists->count() > 0) {
+                                $mergedData = []; // Array to store all merged watchlist data
+
+                                foreach ($watchlists as $watchlist) {
+                                    // Retrieve related `script` and `equity` data
+                                    $script = Script::find($watchlist->script_id); // Using `find` for brevity
+                                    $equity = Equity::find($watchlist->script_name);
+
+                                    // Ensure `script` and `equity` are found before merging
+                                    if ($script && $equity) {
+                                        $mergedItem = array_merge(
+                                            $watchlist->toArray(),
+                                            $script->toArray(),
+                                            $equity->toArray()
+                                        );
+                                        $mergedData[] = $mergedItem;
+                                    }
+                                }
+
+                              
+                            } else {
+                                echo "No watchlist items found.";
+                            }
+
+                            ?>
 
 
                     <div class="col-xl-12">
@@ -1140,20 +1192,9 @@ use App\Providers\Helper;
 
                     <div class="col-12">
 
-                        <?php
-                            $watchlists = Watchlist::where('userid',Auth::user()->id)->get();
-                            echo $watchlists;
-                            if($watchlists->count() > 0){
 
-                            $script=Script::where('id',$watchlists[0]->script_id)->first();
-                            $equity=Equity::where('id',$watchlists[0]->script_name)->first();
-                            echo $script;
-                            echo $equity;
-                            ?>
 
-                        <?php
-                        if($script['symbol']=="NSEFUT"){
-                        ?>
+
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">NSEFUT</h4>
@@ -1180,11 +1221,16 @@ use App\Providers\Helper;
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php 
+                                            $i = 1;
+                                                foreach($mergedData as $watchlist){
+                                                    if($watchlist['script_symbol'] == 'NSEFUT'){
+                                                        ?>
                                             <tr>
                                                 <td>
-                                                    1
+                                                    {{ $i++ }}
                                                 </td>
-                                                <td id="symbol">NIFTY 26DEC2024</td>
+                                                <td id="symbol">{{ $watchlist['symbol'] }}</td>
                                                 <td id="bid">24,775.00</td>
                                                 <td id="ask">24,782.00</td>
                                                 <td id="ltp">24,775.00</td>
@@ -1192,7 +1238,7 @@ use App\Providers\Helper;
                                                 <td>
                                                     <span class="badge light badge-danger">
                                                         <i class="fa fa-circle text-danger me-1"></i>
-                                                       10.65
+                                                        10.65
                                                     </span>
                                                 </td>
                                                 <td id="high">24,844.90</td>
@@ -1203,15 +1249,19 @@ use App\Providers\Helper;
                                                     <button class="btn btn-danger">Close</button>
                                                 </td>
                                             </tr>
+                                            <?php
+                                                    }
+                                                    
+                                                }
+                                                ?>
+
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                        } else if($script['symbol']=="NSEOPT"){
-                        ?>
+
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Patient</h4>
@@ -1261,9 +1311,7 @@ use App\Providers\Helper;
                                 </div>
                             </div>
                         </div>
-                        <?php
-                        } else if($script['symbol']=="MCXFUT"){
-                        ?>
+
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Patient</h4>
@@ -1314,9 +1362,7 @@ use App\Providers\Helper;
                             </div>
                         </div>
 
-                        <?php
-                        } else if($script['symbol']=="MCXOPT"){
-                        ?>
+
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Patient</h4>
@@ -1366,15 +1412,8 @@ use App\Providers\Helper;
                                 </div>
                             </div>
                         </div>
-                        <?php
-                        }
-                        ?>
 
-                        <?php
-                            }else{
-                                echo "<h1>No Watchlist Found</h1>";
-                            }
-                        ?>
+
 
                     </div>
 
@@ -1462,10 +1501,10 @@ use App\Providers\Helper;
     });
     </script>
 
-<script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
-<script>
-    Echo.channel('watchlists')
+    <script>
+        Echo.channel('watchlists')
 .listen('Watchlist', (event) => {
 //     if (event.watchlist && event.watchlist.length > 0) {
 //     var symbol = event.watchlist[0]?.trade?.metadata?.symbol || 'N/A';
@@ -1485,7 +1524,7 @@ use App\Providers\Helper;
 
 });
 
-</script>
+    </script>
 
 </body>
 

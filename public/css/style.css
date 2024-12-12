@@ -25020,7 +25020,7 @@ table.dataTable tbody tr.selected > * {
   border-color: var(--border) !important; }
 
 table.dataTable tbody tr, table.dataTable tbody td {
-  background: transparent !important; }
+  background: transparent ; }
 
 table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display > tbody > tr.selected:hover > * {
   box-shadow: unset !important; }
