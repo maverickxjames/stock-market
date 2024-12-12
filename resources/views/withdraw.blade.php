@@ -1,6 +1,6 @@
 @php
-$user=Auth::user();
-use App\Models\withdraw_mode;
+    $user = Auth::user();
+    use App\Models\withdraw_mode;
 @endphp
 
 
@@ -423,7 +423,7 @@ use App\Models\withdraw_mode;
 
     <section class="withdraw-request section-b-space">
         <?php
-         $withdrawable_balance = $user->withdraw_wallet;
+        $withdrawable_balance = $user->withdraw_wallet;
         ?>
         <div class="custom-container">
             <ul class="withdraw-list">
@@ -458,13 +458,13 @@ use App\Models\withdraw_mode;
                 <li class="payment-method-item border p-3 rounded mb-3">
                     {{-- <div class="form-check d-flex align-items-center"> --}}
 
-                        <label class="form-check-label d-flex align-items-center" for="paymentMethod">
-                            <img src="<?= $row['icon'] ?>" alt="<?= $row['pay_name'] ?>" class="img-fluid me-2"
-                                style="width: 30px;">
-                            <?= $row['pay_name'] ?>
-                        </label>
-                        <input class="form-check-input me-3" id="<?= $row['slug'] ?>" type="radio" name="paymentMethod">
-                        {{--
+                    <label class="form-check-label d-flex align-items-center" for="paymentMethod">
+                        <img src="<?= $row['icon'] ?>" alt="<?= $row['pay_name'] ?>" class="img-fluid me-2"
+                            style="width: 30px;">
+                        <?= $row['pay_name'] ?>
+                    </label>
+                    <input class="form-check-input me-3" id="<?= $row['slug'] ?>" type="radio" name="paymentMethod">
+                    {{--
                     </div> --}}
                 </li>
                 <?php
@@ -536,9 +536,7 @@ use App\Models\withdraw_mode;
         <!-- JavaScript 
         -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-
-    </script>
+    <script></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
@@ -548,102 +546,79 @@ use App\Models\withdraw_mode;
         }
 
         function initiateWithdraw() {
-            var amount = document.getElementById("amount").value;
-            var payment_mode = document.querySelector('input[name="paymentMethod"]:checked');
+            const amount = document.getElementById("amount").value;
+            const paymentMode = document.querySelector('input[name="paymentMethod"]:checked');
 
-
-            if (amount == null || amount == "") {
+            if (!amount) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Please enter amount',
+                    text: 'Please enter the amount.',
                 });
                 return;
             }
 
-            if(payment_mode){
-                payment_mode = payment_mode.id;
-            }else{
+            if (!paymentMode) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Please select payment mode',
+                    text: 'Please select a payment mode.',
                 });
                 return;
             }
-           
 
-            // Ajax Payment Link Generation and Redirect to Payment Gateway Page 
+            const paymentModeId = paymentMode.id;
 
+            // Send AJAX request
             $.ajax({
-                url: 'withdrawRef', // Ensure this URL is correct and accessible
-                type: 'POST', // Use uppercase for HTTP methods (optional but recommended)
+                url: '/withdrawRef', // Ensure this matches the route in your Laravel app
+                type: 'POST',
                 headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
-            },
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
                 data: {
                     amount: amount,
-                    payment_mode: payment_mode
+                    payment_mode: paymentModeId,
                 },
-                dataType: 'json', // Expecting JSON response from the server
+                dataType: 'json',
                 beforeSend: function() {
-                    // Show SweetAlert2 loading modal
                     Swal.fire({
-                        title: 'Processing Payment...',
-                        text: 'Please wait while we process your payment.',
-                        allowOutsideClick: false, // Prevent closing by clicking outside
-                        didOpen: () => {
-                            Swal.showLoading(); // Show the loading spinner
-                        }
+                        title: 'Processing Withdrawal...',
+                        text: 'Please wait.',
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading(),
                     });
                 },
                 success: function(response) {
-                    // Close the loading modal
                     Swal.close();
-
-                    // Check the response status
-                    if (response.status === 'success') {
-                        // Optionally, you can show a success message before redirecting
+                    if (response.icon === 'success') {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Withdraw Initiated',
-                            text: 'Redirecting to history page...',
-                            timer: 2000, // Close after 2 seconds
-                            showConfirmButton: false
+                            title: response.title,
+                            text: response.message,
+                            timer: 2000,
+                            showConfirmButton: false,
                         }).then(() => {
-                            // Redirect to the payment link
-                            window.location.href = response.url;
+                            window.location.reload();
                         });
                     } else {
-                        // Show error message returned from the server
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Payment Failed',
-                            text: response.message || 'An unknown error occurred.',
-                        }).then(() => {
-                            // Redirect to the payment link
-                            window.location.href = response.url;
+                            icon: response.icon,
+                            title: response.title,
+                            text: response.message,
                         });
                     }
                 },
-                error: function(xhr, status, error) {
-                    // Close the loading modal
+                error: function(xhr) {
                     Swal.close();
-
-                    // Log the error for debugging (optional)
-                    console.error('AJAX Error:', status, error);
-
-                    // Show a generic error message
                     Swal.fire({
                         icon: 'error',
-                        title: 'Request Failed',
-                        text: 'There was a problem processing your payment. Please try again later.',
+                        title: 'Error',
+                        text: xhr.responseJSON?.message || 'An unknown error occurred.',
                     });
-                }
+                },
             });
-
-        } 
-        
+        }
     </script>
 </body>
 

@@ -41,6 +41,8 @@
 
     <base href="/">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
@@ -193,8 +195,8 @@
         }
 
         .auth-formm {
-    padding: 3.125rem 0;
-}
+            padding: 3.125rem 0;
+        }
 
         .card {
             display: block;
@@ -248,7 +250,7 @@
             margin-top: 30px;
         }
 
-         .form-group {
+        .form-group {
             position: relative;
             display: block;
             margin-top: 25px;
@@ -350,8 +352,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label mb-2" for="Inputswift">UPI ID</label>
-                        <input type="text" class="form-control" id="Inputswift" value="{{ $bankDetails->upi ?? '' }}"
-                            placeholder="Enter UPI ID">
+                        <input type="text" class="form-control" id="Inputswift"
+                            value="{{ $bankDetails->upi ?? '' }}" placeholder="Enter UPI ID">
                     </div>
                     <div class="fixed-btn">
                         <div class="custom-container">
@@ -390,13 +392,25 @@
 
     <script>
         function bankUpdate() {
+            // Fetching input field values
             var bank_name = document.getElementById('Inputname').value;
             var bank_holder = document.getElementById('Inputholder').value;
-            var bank_acc = document.getElementById('Inputnumner').value;
+            var bank_acc = document.getElementById('Inputnumber').value; // Corrected ID
             var bank_branch = document.getElementById('Inputbranch').value;
             var bank_ifsc = document.getElementById('Inputcode').value;
             var upi = document.getElementById('Inputswift').value;
 
+            // Validate input fields
+            if (!bank_name || !bank_holder || !bank_acc || !bank_branch || !bank_ifsc || !upi) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'All fields are required',
+                });
+                return;
+            }
+
+            // Data to send via AJAX
             var data = {
                 bank_name: bank_name,
                 bank_holder: bank_holder,
@@ -404,42 +418,60 @@
                 bank_branch: bank_branch,
                 bank_ifsc: bank_ifsc,
                 upi: upi
-            }
+            };
 
+            // Display loading indicator
+            Swal.fire({
+                title: 'Updating...',
+                text: 'Please wait while your bank details are being updated.',
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+
+            // AJAX request
             $.ajax({
-                url: 'bank-update',
+                url: '{{ route('update-bank-details') }}',
                 method: 'post',
                 data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+                },
                 success: function(response) {
+                    // Stop loading indicator
+                    Swal.close();
 
-                    // json parse 
-                    var res = JSON.parse(response);
-                    // swal.fire 
-                    res = res[0];
-
-                    if (res.success) {
+                    // Process response
+                    if (response.success) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
-                            text: res.message,
+                            text: response.message,
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                location.reload();
+                                location.reload(); // Reload the page to reflect changes
                             }
-                        })
+                        });
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: res.message,
-                        })
+                            text: response.message,
+                        });
                     }
-
-
+                },
+                error: function() {
+                    // Handle errors
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong. Please try again later.',
+                    });
                 }
-            })
+            });
         }
     </script>
+
     <script>
         <!-- JavaScript 
         -->
