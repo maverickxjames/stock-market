@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-ref', [PaymentController::class, 'uploadRef'])->name('uploadRef');
     Route::get('withdraw', [PaymentController::class, 'withdraw'])->name('withdraw');
     Route::post('withdrawRef', [PaymentController::class, 'withdrawRef'])->name('withdrawRef');
+    Route::get('bank-details', [PaymentController::class, 'bankDetails'])->name('bank-details');
+    Route::post('bank-update', [PaymentController::class, 'updateBankDetails'])->name('update-bank-details');
 
 
 

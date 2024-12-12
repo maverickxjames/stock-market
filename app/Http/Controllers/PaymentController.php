@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+//import database model user
+use App\Models\User;    
+use App\Models\bankDetail;
+use App\Models\withdraw;
+
 
 use Illuminate\View\View;
 
@@ -241,7 +246,7 @@ class PaymentController extends Controller
             $user_id = Auth::id(); // Assuming the user is authenticated
 
             // Get the transaction details
-            $transaction = DB::table('depsoits')->where('order_id', $txn_id)->first();
+            $transaction = DB::table('deposits')->where('order_id', $txn_id)->first();
 
             if (!$transaction) {
                 return response()->json(['icon' => 'error', 'title' => 'Error', 'message' => 'Transaction not found.'], 404);
@@ -256,22 +261,16 @@ class PaymentController extends Controller
             Storage::put($path, File::get($file));
 
 
-            // Update the database based on transaction type
-            if ($transaction->type === 'usdt') {
-                $update = DB::table('deposits')->where('order_id', $txn_id)->update([
-                    'remark' => 'Payment Requested',
-                    'payment_ss' => $filename
-                ]);
-            } else {
+          
                 $update = DB::table('deposits')->where('order_id', $txn_id)->update([
                     'remark' => 'Payment Requested',
                     'utr' => $utr,
                     'payment_ss' => $filename
                 ]);
-            }
+            
 
             if ($update) {
-                return response()->json(['icon' => 'success', 'title' => 'Success', 'message' => 'Payment proof uploaded successfully.', 'redirect' => url('/success-page')]);
+                return response()->json(['icon' => 'success', 'title' => 'Success', 'message' => 'Payment proof uploaded successfully.', 'redirect' => url('/deposit')]);
             } else {
                 return response()->json(['icon' => 'error', 'title' => 'Error', 'message' => 'Failed to update the transaction.'], 500);
             }
@@ -284,6 +283,41 @@ class PaymentController extends Controller
     public function withdraw(Request $request): View
     {
         return view('withdraw');
+    }
+
+    public function withdrawRef( Request $request){
+        $user_id = Auth::id();
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+            'ss' => 'required|file|mimes:jpg,jpeg,png,gif|max:20480', // Max 2MB file size
+        ]);
+
+        $amount = $request->input('amount');
+        $file = $request->file('ss');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $path = 'public/withdraw_ss/' . $filename;
+        Storage::put($path, File::get($file));
+
+        DB::table('withdraws')->insert([
+            'userid' => $user_id,
+            'amount' => $amount,
+            'status' => 0,
+            'remark' => 'Pending',
+            'ss' => $filename,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json(['icon' => 'success', 'title' => 'Success', 'message' => 'Withdraw request submitted successfully.']);
+    }
+
+    public function bankDetails(Request $request): View
+    {
+        // $bankDetails = bankDetail::all();
+        // fetch bankdetail of particular user which is curent login
+        $bankDetails = bankDetail::where('userid', Auth::id())->first(); 
+        
+        return view('bank', compact('bankDetails'));
     }
 
 }

@@ -44,6 +44,8 @@ use App\Models\withdraw_mode;
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <base href="/">
 
     <!-- FAVICONS ICON -->
@@ -201,151 +203,174 @@ use App\Models\withdraw_mode;
         /* Custom Stylesheet */
 
         /* General styling for the section */
-       /***** General Section Styling *****/
-.withdraw-request {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.custom-container {
-    max-width: 800px;
-    margin: auto;
-}
+        /***** General Section Styling *****/
+        .withdraw-request {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-/***** Form and Input Styling *****/
-.form-group {
-    margin-bottom: 15px;
-}
-.form-label {
-    font-weight: bold;
-    color: #333;
-}
-.form-control {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-}
+        .custom-container {
+            max-width: 800px;
+            margin: auto;
+        }
 
-/***** Payment Method List *****/
+        /***** Form and Input Styling *****/
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /***** Payment Method List *****/
 
 
-.auth-form {
-    padding: 0 !important; /* Remove extra padding */
-    margin: 0 auto; /* Center the form */
-    max-width: 400px; /* Limit the width for better readability */
-}
+        .auth-form {
+            padding: 0 !important;
+            /* Remove extra padding */
+            margin: 0 auto;
+            /* Center the form */
+            max-width: 400px;
+            /* Limit the width for better readability */
+        }
 
-.auth-form .form-group {
-    margin-bottom: 15px; /* Add spacing between form groups */
-}
+        .auth-form .form-group {
+            margin-bottom: 15px;
+            /* Add spacing between form groups */
+        }
 
-.auth-form .form-label {
-    font-size: 1rem; /* Ensure consistent label size */
-    color: #333; /* Use a neutral text color */
-}
+        .auth-form .form-label {
+            font-size: 1rem;
+            /* Ensure consistent label size */
+            color: #333;
+            /* Use a neutral text color */
+        }
 
-.auth-form .form-control {
-    border: 1px solid #ccc; /* Add a subtle border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px; /* Adjust input padding */
-    font-size: 1rem; /* Make text readable */
-}
+        .auth-form .form-control {
+            border: 1px solid #ccc;
+            /* Add a subtle border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 10px;
+            /* Adjust input padding */
+            font-size: 1rem;
+            /* Make text readable */
+        }
 
-.auth-form .form-control:focus {
-    border-color: #007bff; /* Highlight border on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle focus glow */
-}
+        .auth-form .form-control:focus {
+            border-color: #007bff;
+            /* Highlight border on focus */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            /* Subtle focus glow */
+        }
 
-@media (max-width: 768px) {
-    .auth-form {
-        /* padding: 10px !important;  */
-        max-width: 100%; /* Make form responsive */
-    }
-}
+        @media (max-width: 768px) {
+            .auth-form {
+                /* padding: 10px !important;  */
+                max-width: 100%;
+                /* Make form responsive */
+            }
+        }
 
-.payment-method-list {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 20px;
-    }
+        .payment-method-list {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-    .payment-method-item {
-        flex: 1 0 calc(50% - 15px);
-        justify-content: space-between;
-        cursor: pointer;
-        background: #ffffff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: background 0.3s ease;
-    }
+        .payment-method-item {
+            flex: 1 0 calc(50% - 15px);
+            justify-content: space-between;
+            cursor: pointer;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s ease;
+        }
 
-    .payment-method-item:hover {
-        background: #f0f0f0;
-    }
+        .payment-method-item:hover {
+            background: #f0f0f0;
+        }
 
-    .payment-method-item img {
-        width: 40px;
-        height: 40px;
-    }
-.form-check-label {
-    flex-grow: 1;
-    font-size: 14px;
-    color: #333;
-}
-.form-check-input {
-    margin-left: 10px;
-}
+        .payment-method-item img {
+            width: 40px;
+            height: 40px;
+        }
 
-/***** Buttons *****/
-.grid-btn button {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-}
-.grid-btn .btn-primary {
-    background-color: #007bff;
-}
-.grid-btn .btn-secondary {
-    background-color: #6c757d;
-}
+        .form-check-label {
+            flex-grow: 1;
+            font-size: 14px;
+            color: #333;
+        }
 
-/***** Notice Section *****/
-.condition-part {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-}
-.condition-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.condition-list li {
-    margin-bottom: 10px;
-}
-.condition-list h5 {
-    font-size: 14px;
-    color: #007bff;
-    margin-bottom: 5px;
-}
-.condition-list p {
-    font-size: 13px;
-    color: #555;
-    margin: 0;
-}
+        .form-check-input {
+            margin-left: 10px;
+        }
 
+        /***** Buttons *****/
+        .grid-btn button {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .grid-btn .btn-primary {
+            background-color: #007bff;
+        }
+
+        .grid-btn .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        /***** Notice Section *****/
+        .condition-part {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .condition-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .condition-list li {
+            margin-bottom: 10px;
+        }
+
+        .condition-list h5 {
+            font-size: 14px;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .condition-list p {
+            font-size: 13px;
+            color: #555;
+            margin: 0;
+        }
     </style>
 
     {{-- bootstrap cdn --}}
@@ -391,9 +416,9 @@ use App\Models\withdraw_mode;
             <h4 class="alert-heading">Notice</h4>
             <p>Minimum Withdraw is 200 INR</p>
             {{-- <p>You can place only 10 free Withdraw in a day. After that 1% TDS will be applied</p> --}}
-        </div>  
+        </div>
 
-        
+
     </div>
 
     <section class="withdraw-request section-b-space">
@@ -411,6 +436,7 @@ use App\Models\withdraw_mode;
                     </div>
                     <br>
                     <form action="" class="auth-form">
+                        @csrf
                         <div class="form-group mt-0">
                             <label class="form-label mb-2" for="amount">Amount :</label>
                             <input type="number" class="form-control" id="amount" placeholder="Enter Amount">
@@ -446,19 +472,19 @@ use App\Models\withdraw_mode;
                                 ?>
             </ul>
 
-           
+
             <?php
             
             if(count($paymentModes) == 0){?>
-                <div class="grid-btn mt-2">
-                    <button style="cursor:not-allowed;opacity:0.5" class="btn btn-secondary w-100 m-0" disabled>Not Payment
-                        Method Available</button>
-                </div>
-                <?php } else { ?>
-                <div class="grid-btn mt-4">
-                    <button onclick="initiateWithdraw()" class="btn btn-primary w-100 m-0">Withdraw</button>
-                </div>
-                <?php } ?>
+            <div class="grid-btn mt-2">
+                <button style="cursor:not-allowed;opacity:0.5" class="btn btn-secondary w-100 m-0" disabled>Not Payment
+                    Method Available</button>
+            </div>
+            <?php } else { ?>
+            <div class="grid-btn mt-4">
+                <button onclick="initiateWithdraw()" class="btn btn-primary w-100 m-0">Withdraw</button>
+            </div>
+            <?php } ?>
 
             <div class="condition-part">
                 <h4 class="fw-semibold title-color">Notice :</h4>
@@ -552,6 +578,9 @@ use App\Models\withdraw_mode;
             $.ajax({
                 url: 'withdrawRef', // Ensure this URL is correct and accessible
                 type: 'POST', // Use uppercase for HTTP methods (optional but recommended)
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+            },
                 data: {
                     amount: amount,
                     payment_mode: payment_mode

@@ -37,6 +37,7 @@
 
 	<!-- MOBILE SPECIFIC -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<base href="/">
 
@@ -387,7 +388,7 @@
 			<div>
 				<!-- Upload Payment Proof Form -->
 				<form class="auths-form" enctype="multipart/form-data" id="paymentForm">
-					@csrf
+					{{-- @csrf --}}
 					<div class="form-group mt-0">
 						<label class="form-label mb-2" for="ss">Upload Screenshot:
 							<span style="color:red">* <sup>(Required)</sup></span>
