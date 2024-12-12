@@ -7,6 +7,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScriptController;
+use App\Http\Controllers\CronController;
 
 Route::get('/', function () {
     return view('login');
@@ -14,6 +15,8 @@ Route::get('/', function () {
 
 Route::get('future', [ScriptController::class, 'future']);
 Route::get('test', [ScriptController::class, 'test']);
+
+Route::get('fetchequities', [CronController::class, 'fetequities']);
 
 
 Route::get('/dashboard', function () {
