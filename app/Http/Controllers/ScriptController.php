@@ -25,8 +25,4 @@ class ScriptController extends Controller
         }
 
     }
-
-    public function fetequities(){
-        return "Hello";
-    }
 }
