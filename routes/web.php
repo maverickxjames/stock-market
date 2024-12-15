@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/add-admin',[AdminController::class, 'addAdmin'])->name("add-admin-post");
     Route::get('admin/all-admin',[AdminController::class, 'allAdmin'])->name("all-admin");
     Route::get('admin/all-user',[AdminController::class, 'allUser'])->name("all-user");
+    Route::get('admin/user/{id}',[AdminController::class, 'user'])->name("user");
+    Route::post('admin/approve-deposit', [AdminController::class, 'approveDeposit'])->name('approve-deposit');
+Route::post('admin/approve-withdraw', [AdminController::class, 'approveWithdraw'])->name('approve-withdraw');
 
     Route::post('/payment-link', [PaymentController::class, 'generatePaymentLink'])->name('payment-link');
     Route::get('deposit', [PaymentController::class, 'deposit'])->name('deposit');
