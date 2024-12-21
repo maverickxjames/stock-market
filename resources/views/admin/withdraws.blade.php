@@ -252,303 +252,72 @@ use App\Models\User;
             <!-- /.sidebar -->
         </aside>
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>150</h3>
-
-                                    <p>New Orders</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
-                            </div>
+                            <h1 class="m-0">Withdraw</h1>
                         </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                    <p>Bounce Rate</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-stats-bars"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>44</h3>
-
-                                    <p>User Registrations</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>65</h3>
-
-                                    <p>Unique Visitors</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
+                        <div class="col-sm-6"></div>
                     </div>
-
-
-                    <!-- Recent User -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <h1 class="card-title"
-                                            style="font-size: 1.5rem; font-family:serif; font-weight:800px;">Recent
-                                            Users
-                                        </h1>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-
-                                <!-- /.card-header -->
-                                <div class="card-body">
+                </div>
+            </div>
+        
+        
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <!-- Navigation Tabs -->
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#pending" data-toggle="tab">Pending</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#complete" data-toggle="tab">Complete</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#failed" data-toggle="tab">Failed</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <!-- User's Complete Transaction History -->
+                            <div class="active tab-pane" id="pending">
+                                <div class="card">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>S. No</th>
-                                                <th>User ID</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Username</th>
-                                                <th>Wallet</th>
-                                                <th>Created At</th>
-                                                <th>Is Dummy</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $users = User::orderBy('created_at', 'DESC')->get();
-                                            @endphp
-                                            @foreach ($users as $user)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $user->user_id }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ $user->username }}</td>
-                                                    <td>{{ $user->demo_wallet }}</td>
-                                                    <td>{{ $user->created_at }}</td>
-                                                    <td>
-                                                        @if ($user->is_dummy == 1)
-                                                            <span class="badge badge-success">Yes</span>
-                                                        @else
-                                                            <span class="badge badge-danger">No</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('user', $user->id) }}"
-                                                            class="btn btn-primary">View</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-
-
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Deposit Transition -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <h3 class="card-title"
-                                            style="font-size: 1.5rem; font-family:serif; font-weight:800px;">Recent
-                                            Deposit Transition</h3>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-
-                                    <table id="example2" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
                                                 <th>ID</th>
                                                 <th>USER ID</th>
-                                                <th>Order ID</th>
-                                                <th>Amount</th>
-                                                <th>UPI</th>
-                                                <th>Remark</th>
-                                                <th>UTR</th>
-                                                <th>Time</th>
-
-                                                <th>Action</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-
-                                                $deposit = Deposit::where('status', 0)
-                                                    ->orderBy('created_at', 'DESC')
-                                                    ->get();
-                                            @endphp
-                                            @foreach ($deposit as $row)
-                                                @php
-                                                    $user = User::where('id', $row->userid)->first();
-                                                @endphp
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $user->user_id }}</td>
-                                                    <td>{{ $row->order_id }}</td>
-                                                    <td>{{ $row->amount }}</td>
-                                                    <td>{{ $row->upi }}</td>
-                                                    <td>{{ $row->remark }}</td>
-                                                    <td>{{ $row->utr }}</td>
-                                                    <td>{{ $row->created_at }}</td>
-                                                    <td>
-                                                        <form>
-                                                            @csrf
-                                                            <button class="btn btn-success"
-                                                                onclick="depositApprove('{{ $row->order_id }}','confirm')">Approve</button>
-                                                            <button class="btn btn-warning"
-                                                                onclick="depositApprove('{{ $row->order_id }}','decline')">Decline</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Recent Withdraw Transition -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="d-flex justify-content-between w-100">
-                                        <h3 class="card-title"
-                                            style="font-size: 1.5rem; font-family:serif; font-weight:800px;">Recent
-                                            Withdraw Transition</h3>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            data-card-widget="collapse" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <table id="example3" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>USER ID</th>
-                                                <th>Transition ID</th>
+                                                <th>Txn ID</th>
                                                 <th>Amount</th>
                                                 <th>Type</th>
-                                                <th>Payment Info</th>
-                                                <th>Remark</th>
-                                                <th>Created At</th>
+                                                <th>UPI</th>
+                                               <th>Remark</th> 
+                                                <th>UTR</th>
+                                                <th>Time</th>
+                                                
                                                 <th>Action</th>
-
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php
-                                                $withdraw = Withdraw::where('status', 0)
-                                                    ->orderBy('created_at', 'DESC')
-                                                    ->get();
+                                                $withdraw = Withdraw::where('status', 0)->orderBy('id', 'DESC')->get();
+                                    
                                             @endphp
-
+                                           
                                             @foreach ($withdraw as $row)
                                                 @php
                                                     $user = User::where('id', $row->userid)->first();
-                                                    $paymentInfo = json_decode($row->payment_info, true);
-                                                    $paymentMethod =
-                                                        isset($paymentInfo['is_upi']) && $paymentInfo['is_upi']
-                                                            ? $paymentInfo['upi']
-                                                            : (isset($paymentInfo['is_bank']) && $paymentInfo['is_bank']
-                                                                ? $paymentInfo['bank']
-                                                                : 'N/A');
                                                 @endphp
+                                            
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $user->user_id }}</td>
                                                     <td>{{ $row->txnid }}</td>
                                                     <td>{{ $row->amount }}</td>
                                                     <td>{{ $row->type }}</td>
-                                                    <td>{{ $paymentMethod }}</td>
+                                                    <td>{{ $row->upi }}</td>
                                                     <td>{{ $row->remark }}</td>
+                                                    <td>{{ $row->utr }}</td>
                                                     <td>{{ $row->created_at }}</td>
                                                     <td>
                                                         <form>
@@ -562,21 +331,117 @@ use App\Models\User;
                                                 </tr>
                                             @endforeach
 
+                                        
                                         </tbody>
                                     </table>
+        
                                 </div>
-                                <!-- /.card-body -->
                             </div>
+        
+                            <!-- Deposit-Specific Transactions -->
+                            <div class="tab-pane" id="complete">
+                                <div class="card">
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Mobile No.</th>
+                                                <th>Order ID</th>
+                                                <th>Amount</th>
+                                                <th>Type</th>
+                                                <th>UPI</th>
+                                                <th>Remark</th> 
+                                                <th>UTR</th>
+                                                <th>Time</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            @php
+                                                $withdraw = Withdraw::where('status', 1)->orderBy('id', 'DESC')->get();
+                                    
+                                            @endphp
+                                           
+                                            @foreach ($withdraw as $row)
+                                                @php
+                                                    $user = User::where('id', $row->userid)->first();
+                                                @endphp
+                                            
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $user->user_id }}</td>
+                                                    <td>{{ $row->txnid }}</td>
+                                                    <td>{{ $row->amount }}</td>
+                                                    <td>{{ $row->type }}</td>
+                                                    <td>{{ $row->upi }}</td>
+                                                    <td>{{ $row->remark }}</td>
+                                                    <td>{{ $row->utr }}</td>
+                                                    <td>{{ $row->created_at }}</td>
+                                                    
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+        
+                                </div>
+                            </div>
+        
+                            <!-- Withdrawal-Specific Transactions -->
+                            <div class="tab-pane" id="failed">
+                                <div class="card">
+                                    <table id="example3" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Mobile No.</th>
+                                                <th>Order ID</th>
+                                                <th>Amount</th>
+                                                <th>Type</th>
+                                                <th>UPI</th>
+                                                <th>Remark</th> 
+                                                <th>UTR</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $withdraw = Withdraw::where('status', 2)->orderBy('id', 'DESC')->get();
+                                    
+                                            @endphp
+                                           
+                                            @foreach ($withdraw as $row)
+                                                @php
+                                                    $user = User::where('id', $row->userid)->first();
+                                                @endphp
+                                            
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $user->user_id }}</td>
+                                                    <td>{{ $row->txnid }}</td>
+                                                    <td>{{ $row->amount }}</td>
+                                                    <td>{{ $row->type }}</td>
+                                                    <td>{{ $row->upi }}</td>
+                                                    <td>{{ $row->remark }}</td>
+                                                    <td>{{ $row->utr }}</td>
+                                                    <td>{{ $row->created_at }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+        
+                                </div>
+                            </div>
+        
+        
                         </div>
-
+        
                     </div>
-
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+                </div>
+        
+            </div>
+        
         </div>
-        <!-- /.content-wrapper -->
         <footer class="main-footer">
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
@@ -669,125 +534,66 @@ use App\Models\User;
     </script>
 
 
-    <script>
-        function depositApprove(order_id, r_type) {
-            const actionTitle = r_type === 'confirm' ? 'Approving Deposit...' : 'Declining Deposit...';
-            const actionMessage = r_type === 'confirm' ? 'Please wait while the deposit is approved.' :
-                'Please wait while the deposit is declined.';
+<script>
+   
 
-            // Approve request using AJAX and Swal.fire
-            $.ajax({
-                url: '{{ route('approve-deposit') }}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
-                },
-                data: {
-                    order_id: order_id,
-                    r_type: r_type
-                },
-                beforeSend: function() {
+    function withdrawApprove(txnid, r_type) {
+        const actionTitle = r_type === 'confirm' ? 'Approving Withdraw...' : 'Declining Withdraw...';
+        const actionMessage = r_type === 'confirm' ? 'Please wait while the withdraw is approved.' :
+            'Please wait while the withdraw is declined.';
+        // Approve request using AJAX and Swal.fire
+        $.ajax({
+            url: '{{ route('approve-withdraw') }}',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+            },
+            data: {
+                txnid: txnid,
+                r_type: r_type
+            },
+            beforeSend: function() {
+                Swal.fire({
+                    title: actionTitle,
+                    text: actionMessage,
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading(),
+                });
+            },
+            success: function(data) {
+                Swal.close();
+                const response = data;
+
+                if (response === 'success') {
+                    const message = r_type === 'confirm' ?
+                        'Withdraw Approved Successfully' :
+                        'Withdraw Declined Successfully';
+
                     Swal.fire({
-                        title: actionTitle,
-                        text: actionMessage,
-                        allowOutsideClick: false,
-                        didOpen: () => Swal.showLoading(),
-                    });
-                },
-
-                success: function(data) {
-                    swal.close();
-
-                    const response = data;
-
-
-                    if (response === 'success') {
-                        const message = response.type === 'confirm' ? 'Transaction Approved Successfully' :
-                            'Transaction Declined Successfully';
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: message,
-
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.message,
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    const errorMessage = xhr.responseJSON?.message || 'Something went wrong. Please try again.';
+                        icon: 'success',
+                        title: 'Success',
+                        text: message,
+                    })
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: errorMessage,
+                        text: response.message,
                     });
                 }
-            });
-        }
-
-        function withdrawApprove(txnid, r_type) {
-            const actionTitle = r_type === 'confirm' ? 'Approving Withdraw...' : 'Declining Withdraw...';
-            const actionMessage = r_type === 'confirm' ? 'Please wait while the withdraw is approved.' :
-                'Please wait while the withdraw is declined.';
-            // Approve request using AJAX and Swal.fire
-            $.ajax({
-                url: '{{ route('approve-withdraw') }}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
-                },
-                data: {
-                    txnid: txnid,
-                    r_type: r_type
-                },
-                beforeSend: function() {
-                    Swal.fire({
-                        title: actionTitle,
-                        text: actionMessage,
-                        allowOutsideClick: false,
-                        didOpen: () => Swal.showLoading(),
-                    });
-                },
-                success: function(data) {
-                    Swal.close();
-                    const response = data;
-
-                    if (response === 'success') {
-                        const message = r_type === 'confirm' ?
-                            'Withdraw Approved Successfully' :
-                            'Withdraw Declined Successfully';
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: message,
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.message,
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    const errorMessage = xhr.responseJSON?.message || 'Something went wrong. Please try again.';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: errorMessage,
-                    });
-                }
-            });
-        }
-    </script>
+            },
+            error: function(xhr) {
+                Swal.close();
+                const errorMessage = xhr.responseJSON?.message || 'Something went wrong. Please try again.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMessage,
+                });
+            }
+        });
+    }
+</script>
 
 
 

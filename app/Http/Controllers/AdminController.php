@@ -146,22 +146,22 @@ class AdminController extends Controller
             $user->save();
 
             if ($updated) {
-                return response()->json(['status' => 'success', 'type' => 'confirm']);
+                echo "success";
             } else {
-                return response()->json(['status' => 'error', 'message' => 'Failed to approve deposit']);
+                echo "error";
             }
         } else {
             $deposit = deposit::where('order_id', $txnId)->where('status', 0)->first();
 
             if (!$deposit) {
-                return response()->json(['status' => 'error', 'message' => 'Deposit not found or already processed'], 404);
+               echo "error";
             }
 
             $deposit->status = 2;
             $deposit->remark = 'Deposit Request Declined : ' . $deposit->amount;
             $deposit->save();
 
-            return response()->json(['status' => 'success', 'type' => 'decline']);
+            echo "success";
         }
     }
 
@@ -169,41 +169,59 @@ class AdminController extends Controller
 
     public function approveWithdraw(Request $request)
     {
-         $request->validate(
+        $request->validate(
             [
-                'order_id' => 'required|exists:withdraw_records,order_id',
+                'txnid' => 'required|exists:withdraws,txnid',
                 'r_type' => 'required|in:confirm,decline',
             ]
         );
 
-        $txnId = $request->order_id;
+        $txnId = $request->txnid;
         $rType = $request->r_type;
 
         if ($rType === 'confirm') {
-            $updated = withdraw::where('order_id', $txnId)->where('status', 0)->update(['status' => 1], ['remark' => 'Withdraw Request Approved']);
-            $withdraw = withdraw::where('order_id', $txnId)->where('status', 1)->first();
+            $updated = withdraw::where('txnid', $txnId)
+            ->where('status', 0)
+            ->update([
+                'status' => 1,
+                'remark' => 'Withdraw Request Approved',
+            ]);
 
-            $user = User::find($withdraw->userid);
-            $user->withdraw_wallet -= $withdraw->amount;
-            $user->save();
+           
 
             if ($updated) {
-                return response()->json(['status' => 'success', 'type' => 'confirm']);
+                echo "success";
             } else {
-                return response()->json(['status' => 'error', 'message' => 'Failed to approve withdraw']);
+                echo "error";
             }
         } else {
-            $withdraw = withdraw::where('order_id', $txnId)->where('status', 0)->first();
+            $withdraw = withdraw::where('txnid', $txnId)->where('status', 0)->first();
+
+            $user = User::find($withdraw->userid);
+            $user->withdraw_wallet += $withdraw->amount;
+            $user->save();
 
             if (!$withdraw) {
-                return response()->json(['status' => 'error', 'message' => 'Withdraw not found or already processed'], 404);
+                echo "error";
             }
 
             $withdraw->status = 2;
             $withdraw->remark = 'Withdraw Request Declined : ' . $withdraw->amount;
             $withdraw->save();
 
-            return response()->json(['status' => 'success', 'type' => 'decline']);
+            echo "success";
         }
+    }
+
+    public function depositTxn(Request $request): View
+    {
+        $deposits = DB::table('deposits')->get();
+        return view('admin.deposits', ['deposits' => $deposits]);
+    }
+
+    public function withdrawTxn(Request $request): View
+    {
+        $withdraws = DB::table('withdraws')->get();
+        return view('admin.withdraws', ['withdraws' => $withdraws]);
     }
 }
