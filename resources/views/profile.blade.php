@@ -1248,11 +1248,8 @@
     <script src="js/custom.min.js"></script>
     <script src="js/dlabnav-init.js"></script>
     <script src="js/demo.js"></script>
-    <script src="js/styleSwitcher.js"></script>
+    {{-- <script src="js/styleSwitcher.js"></script> --}}
 
-    <script src="js/custom.min.js"></script>
-    <script src="js/dlabnav-init.js"></script>
-    <script src="js/demo.js"></script>
 
     <!-- Required vendors -->
     <script src="vendor/global/global.min.js"></script>
@@ -1263,10 +1260,7 @@
     <!-- Chart piety plugin files -->
     <script src="vendor/peity/jquery.peity.min.js"></script>
     <script src="js/dashboard/trading-market.js"></script>
-    <!-- Dashboard 1 -->
-    <script src="js/custom.min.js"></script>
-    <script src="js/dlabnav-init.js"></script>
-    <script src="js/demo.js"></script>
+    
 </body>
 
 <!-- Mirrored from jiade.dexignlab.com/xhtml/history.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Aug 2024 08:05:24 GMT -->
