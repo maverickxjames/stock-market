@@ -17,6 +17,7 @@ class ScriptController extends Controller
     }
 
     public function test(){
+        
         while(true){
             $apidata = Helper::fluctuateNumber('24775');
 
