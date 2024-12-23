@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Models\withdraw;
+//imort settings model
+use App\Models\Setting;
 
 class AdminController extends Controller
 {
@@ -154,7 +156,7 @@ class AdminController extends Controller
             $deposit = deposit::where('order_id', $txnId)->where('status', 0)->first();
 
             if (!$deposit) {
-               echo "error";
+                echo "error";
             }
 
             $deposit->status = 2;
@@ -181,13 +183,13 @@ class AdminController extends Controller
 
         if ($rType === 'confirm') {
             $updated = withdraw::where('txnid', $txnId)
-            ->where('status', 0)
-            ->update([
-                'status' => 1,
-                'remark' => 'Withdraw Request Approved',
-            ]);
+                ->where('status', 0)
+                ->update([
+                    'status' => 1,
+                    'remark' => 'Withdraw Request Approved',
+                ]);
 
-           
+
 
             if ($updated) {
                 echo "success";
@@ -223,5 +225,140 @@ class AdminController extends Controller
     {
         $withdraws = DB::table('withdraws')->get();
         return view('admin.withdraws', ['withdraws' => $withdraws]);
+    }
+
+    public function settings(Request $request)
+    {
+        $settings = Setting::all();
+        return view('admin.settings', ['settings' => $settings[0]]);
+    }
+
+
+    public function updateMinWithdraw(Request $request)
+    {
+        $request->validate([
+            'value' => 'required|numeric',
+        ]);
+
+        // Update the specific column directly
+        $updated = DB::table('settings')->update(['minWithdraw' => $request->value]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'Min Withdraw updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update Min Withdraw.']);
+    }
+
+    // Update Min Recharge
+
+    public function updateMinRecharge(Request $request)
+    {
+        $request->validate([
+            'value' => 'required|numeric',
+        ]);
+
+        // Update the specific column directly
+        $updated = DB::table('settings')->update(['minRecharge' => $request->value]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'Min Recharge updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update Min Recharge.']);
+    }
+
+    // Update Withdraw Message
+    public function updateWithdrawMsg(Request $request)
+    {
+        $request->validate([
+            'value' => 'required|string',
+        ]);
+
+        // Update the specific column directly
+        $updated = DB::table('settings')->update(['withdraw_msg' => $request->value]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'Withdraw Message updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update Withdraw Message.']);
+    }
+
+    // Update Deposit Message
+    public function updateDepositMsg(Request $request)
+    {
+        $request->validate([
+            'value' => 'required|string',
+        ]);
+
+        // Update the specific column directly
+        $updated = DB::table('settings')->update(['deposit_msg' => $request->value]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'Deposit Message updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update Deposit Message.']);
+    }
+
+    // Update UPI
+    public function updateUpi(Request $request)
+    {
+        $request->validate([
+            'value' => 'required|string',
+        ]);
+
+        // Update the specific column directly
+        $updated = DB::table('settings')->update(['upi' => $request->value]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'UPI updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update UPI.']);
+    }
+
+    // Update Withdraw Status
+    public function updateWithdrawStatus(Request $request)
+    {
+        $status = $request->status;
+
+        $updated = DB::table('settings')->update(['withdraw_status' => $status]);
+
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'Withdraw Status updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update Withdraw Status.']);
+    }
+
+    // Update Recharge Status
+    public function updateRechargeStatus(Request $request)
+    {
+        $status = $request->status;
+
+        $updated = DB::table('settings')->update(['recharge_status' => $status]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'Recharge Status updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update Recharge Status.']);
+    }
+
+    // Update UPI Status
+    public function updateUpiStatus(Request $request)
+    {
+        $status = $request->status;
+
+        $updated = DB::table('settings')->update(['upi_status' => $status]);
+
+        if ($updated) {
+            return response()->json(['success' => true, 'message' => 'UPI Status updated successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Failed to update UPI Status.']);
     }
 }

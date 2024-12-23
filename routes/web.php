@@ -69,7 +69,20 @@ Route::middleware('auth')->group(function () {
 Route::post('admin/approve-withdraw', [AdminController::class, 'approveWithdraw'])->name('approve-withdraw');
     Route::get('admin/deposit-txn', [AdminController::class, 'depositTxn'])->name('deposit_txn');
     Route::get('admin/withdraw-txn', [AdminController::class, 'withdrawTxn'])->name('withdraw_txn');
+
+    Route::get('admin/settings', [AdminController::class, 'settings'])->name('settings');
+    Route::post('/admin/update-min-withdraw', [AdminController::class, 'updateMinWithdraw'])->name('settings.updateMinWithdraw');
+Route::post('/admin/update-min-recharge', [AdminController::class, 'updateMinRecharge'])->name('settings.updateMinRecharge');
+
+    Route::post('/admin/update-withdraw-msg', [AdminController::class, 'updateWithdrawMsg'])->name('settings.updateWithdrawMsg');
+Route::post('/admin/update-deposit-msg', [AdminController::class, 'updateDepositMsg'])->name('settings.updateDepositMsg');
+Route::post('/admin/update-upi', [AdminController::class, 'updateUpi'])->name('settings.updateUpi');
+Route::post('/admin/update-withdraw-status', [AdminController::class, 'updateWithdrawStatus'])->name('settings.updateWithdrawStatus');
+Route::post('admin/update-recharge-status', [AdminController::class, 'updateRechargeStatus'])->name('settings.updateRechargeStatus');
+Route::post('admin/update-upi-status', [AdminController::class, 'updateUpiStatus'])->name('settings.updateUpiStatus');
     
+
+
 
     Route::post('/payment-link', [PaymentController::class, 'generatePaymentLink'])->name('payment-link');
     Route::get('deposit', [PaymentController::class, 'deposit'])->name('deposit');
