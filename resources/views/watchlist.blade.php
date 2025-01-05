@@ -56,8 +56,9 @@
 
     <link href="vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
-    {{-- import meta csrf token --}}
+    {{-- meta csrf --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link href="vendor/datatables/responsive/responsive.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
@@ -1093,262 +1094,265 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body pt-0">
-                                <div class="coin-holding">
-                                    <form>
-                                    @csrf
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">SEGMENT</label>
-                                            <select onchange="dis()" id="searchable"
-                                                class="form-control segment default-select h-auto wide"
-                                                aria-label="Default select example" data-role="segment-select">
-                                                <?php
-                                                Script::all()->each(function ($script) {
-                                                    echo "<option value='$script->id'>$script->script_symbol</option>";
-                                                });
-                                                ?>
+                            <form>
+                                @csrf
+                                <div class="card-body pt-0">
+                                    <div class="coin-holding">
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">Script</label>
-                                            <select id="searchable2" class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <?php
-                                                Equity::orderBy('symbol', 'ASC')
-                                                    ->get()
-                                                    ->each(function ($equity) {
-                                                        echo "<option value='$equity->id'>$equity->symbol</option>";
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">SEGMENT</label>
+                                                <select onchange="dis()" id="searchable"
+                                                    class="form-control segment default-select h-auto wide"
+                                                    aria-label="Default select example" data-role="segment-select">
+                                                    <?php
+                                                    Script::all()->each(function ($script) {
+                                                        echo "<option value='$script->id'>$script->script_symbol</option>";
                                                     });
-                                                ?>
-                                            </select>
+                                                    ?>
+
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">Expiry</label>
-                                            <select class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <option value="1">10-12-2024</option>
-                                            </select>
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">Script</label>
+                                                <select id="searchable2"
+                                                    class="form-control script default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <?php
+                                                    Equity::orderBy('symbol', 'ASC')
+                                                        ->get()
+                                                        ->each(function ($equity) {
+                                                            echo "<option value='$equity->id'>$equity->symbol</option>";
+                                                        });
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">CALL / PUT</label>
-                                            <select id="callPutSelect" class="form-control default-select h-auto wide"
-                                                aria-label="Default select example" disabled>
-                                                <option selected>Select</option>
-                                                <option value="1">CE</option>
-                                                <option value="2">PE</option>
-                                            </select>
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">Expiry</label>
+                                                <select id="expiry" class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <option value="2024-12-10">10-12-2024</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">STRIKE</label>
-                                            <select id="searchable3"
-                                                class="form-control strike default-select h-auto wide"
-                                                aria-label="Default select example" disabled>
-                                                <option selected>Select Status</option>
-                                                <option value="1">Published</option>
-                                                <option value="2">Draft</option>
-                                                <option value="3">Trash</option>
-                                                <option value="4">Private</option>
-                                                <option value="5">Pending</option>
-                                            </select>
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">CALL / PUT</label>
+                                                <select id="callPutSelect"
+                                                    class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example" disabled>
+                                                    <option selected>Select</option>
+                                                    <option value="CE">CE</option>
+                                                    <option value="PE">PE</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="button-container d-flex justify-content-center mt-3">
-                                        <button onsubmit="addWatchlist()"
-                                            class="image-button border-0 d-flex align-items-center justify-content-center"
-                                            type="button">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
-                                                alt="Add Icon">
-                                        </button>
-                                    </div>
-                                    </form>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                    $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
-                    
-                    if ($watchlists->count() > 0) {
-                        $mergedData = []; // Array to store all merged watchlist data
-                    
-                        foreach ($watchlists as $watchlist) {
-                            // Retrieve related `script` and `equity` data
-                            $script = Script::find($watchlist->script_id); // Using `find` for brevity
-                            $equity = Equity::find($watchlist->script_name);
-                    
-                            // Ensure `script` and `equity` are found before merging
-                            if ($script && $equity) {
-                                $mergedItem = array_merge($watchlist->toArray(), $script->toArray(), $equity->toArray());
-                                $mergedData[] = $mergedItem;
-                            }
-                        }
-                    } else {
-                        echo 'No watchlist items found.';
-                    }
-                    
-                    ?>
-
-
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-header border-0 flex-wrap">
-                                <h4 class="card-title font-sans font-bold">NSE Option</h4>
-                                <div class="d-flex align-items-center">
-                                    <!-- Button trigger modal -->
-
-
-                                    <div class="search-container mb-0 ms-3">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search..."
-                                                aria-label="Search">
-                                            <button class="btn btn-secondary" type="button">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
-                                                    width="20px" height="20px" alt="">
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">STRIKE</label>
+                                                <select id="searchable3"
+                                                    class="form-control strike default-select h-auto wide"
+                                                    aria-label="Default select example" disabled>
+                                                    <option selected>Select Status</option>
+                                                    <option value="1">Published</option>
+                                                    <option value="2">Draft</option>
+                                                    <option value="3">Trash</option>
+                                                    <option value="4">Private</option>
+                                                    <option value="5">Pending</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="button-container d-flex justify-content-center mt-3">
+                                            <button onclick="addWatchlist()"
+                                                class="image-button border-0 d-flex align-items-center justify-content-center"
+                                                type="button">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
+                                                    alt="Add Icon">
                                             </button>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="coin-holding">
-
-
-                                </div>
-
-                            </div>
+                            </form>
 
 
                         </div>
+
+                    </div>
+                </div>
+            </div>
+            <?php
+            $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
+            
+            if ($watchlists->count() > 0) {
+                $mergedData = []; // Array to store all merged watchlist data
+            
+                foreach ($watchlists as $watchlist) {
+                    // Retrieve related `script` and `equity` data
+                    $script = Script::find($watchlist->script_id); // Using `find` for brevity
+                    $equity = Equity::find($watchlist->script_name);
+            
+                    // Ensure `script` and `equity` are found before merging
+                    if ($script && $equity) {
+                        $mergedItem = array_merge($watchlist->toArray(), $script->toArray(), $equity->toArray());
+                        $mergedData[] = $mergedItem;
+                    }
+                }
+            } else {
+                echo 'No watchlist items found.';
+            }
+            
+            ?>
+
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header border-0 flex-wrap">
+                        <h4 class="card-title font-sans font-bold">NSE Option</h4>
+                        <div class="d-flex align-items-center">
+                            <!-- Button trigger modal -->
+
+
+                            <div class="search-container mb-0 ms-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search..."
+                                        aria-label="Search">
+                                    <button class="btn btn-secondary" type="button">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
+                                            width="20px" height="20px" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="coin-holding">
+
+
+                        </div>
+
                     </div>
 
-                    <div class="col-12">
+
+                </div>
+            </div>
+
+            <div class="col-12">
 
 
 
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">NSEFUT</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example" class="display min-w850">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    S.No
-                                                </th>
-                                                <th>NSE FUTURE Sym</th>
-                                                <th>BID RATE</th>
-                                                <th>ASK RATE</th>
-                                                <th>LTP</th>
-                                                <th>CHANGE %</th>
-                                                <th>NET CHANGE</th>
-                                                <th>HIGH</th>
-                                                <th>LOW</th>
-                                                <th>OPEN</th>
-                                                <th>CLOSE</th>
-                                                <th class="text-end">REMOVE</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">NSEFUT</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display min-w850">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            S.No
+                                        </th>
+                                        <th>NSE FUTURE Sym</th>
+                                        <th>BID RATE</th>
+                                        <th>ASK RATE</th>
+                                        <th>LTP</th>
+                                        <th>CHANGE %</th>
+                                        <th>NET CHANGE</th>
+                                        <th>HIGH</th>
+                                        <th>LOW</th>
+                                        <th>OPEN</th>
+                                        <th>CLOSE</th>
+                                        <th class="text-end">REMOVE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
                                             $i = 1;
                                                 foreach($mergedData as $watchlist){
                                                     if($watchlist['script_symbol'] == 'NSEFUT'){
                                                         ?>
-                                            <tr>
-                                                <td>
-                                                    {{ $i++ }}
-                                                </td>
-                                                <td id="symbol">{{ $watchlist['symbol'] }}</td>
-                                                <td id="bid">24,775.00</td>
-                                                <td id="ask">24,782.00</td>
-                                                <td id="ltp">24,775.00</td>
-                                                <td id="ch">0.04</td>
-                                                <td>
-                                                    <span class="badge light badge-danger">
-                                                        <i class="fa fa-circle text-danger me-1"></i>
-                                                        10.65
-                                                    </span>
-                                                </td>
-                                                <td id="high">24,844.90</td>
-                                                <td id="low">24,844.90</td>
-                                                <td id="open">24,844.90</td>
-                                                <td id="close">24,844.90</td>
-                                                <td>
-                                                    <button class="btn btn-danger">Close</button>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                    <tr>
+                                        <td>
+                                            {{ $i++ }}
+                                        </td>
+                                        <td id="symbol">{{ $watchlist['symbol'] }}</td>
+                                        <td id="bid">24,775.00</td>
+                                        <td id="ask">24,782.00</td>
+                                        <td id="ltp">24,775.00</td>
+                                        <td id="ch">0.04</td>
+                                        <td>
+                                            <span class="badge light badge-danger">
+                                                <i class="fa fa-circle text-danger me-1"></i>
+                                                10.65
+                                            </span>
+                                        </td>
+                                        <td id="high">24,844.90</td>
+                                        <td id="low">24,844.90</td>
+                                        <td id="open">24,844.90</td>
+                                        <td id="close">24,844.90</td>
+                                        <td>
+                                            <button class="btn btn-danger">Close</button>
+                                        </td>
+                                    </tr>
+                                    <?php
                                                     }
                                                     
                                                 }
                                                 ?>
 
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
                     </div>
-
                 </div>
 
 
+
+
+
+
+
+
+
+
+
+
             </div>
+
         </div>
-        <!--**********************************
+
+
+    </div>
+    </div>
+    <!--**********************************
             Content body end
         ***********************************-->
 
 
 
-        <!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="https://dexignlab.com/"
-                        target="_blank">DexignLab</a> <span class="current-year">2024</span>
-                </p>
-            </div>
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright © Designed &amp; Developed by <a href="https://dexignlab.com/" target="_blank">DexignLab</a>
+                <span class="current-year">2024</span>
+            </p>
         </div>
-        <!--**********************************
+    </div>
+    <!--**********************************
             Footer end
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
 
@@ -1449,64 +1453,100 @@
         function addWatchlist() {
             var segment = document.querySelector('.segment').value;
             var script = document.querySelector('.script').value;
-            var expiry = document.querySelector('.expiry').value;
-            var callPut = document.querySelector('.callPut').value;
+            var expiry = document.querySelector('#expiry').value;
+            var callPut = document.querySelector('#callPutSelect').value;
             var strike = document.querySelector('.strike').value;
+            console.log(script)
 
-            var data = {
+            data = {
                 segment: segment,
                 script: script,
                 expiry: expiry,
                 callPut: callPut,
                 strike: strike
-            };
+            }
+
+
+            var data = {};
+            if (segment == 2) {
+                data = {
+                    segment: segment,
+                    script: script,
+                    expiry: expiry,
+                    callPut: callPut,
+                    strike: strike
+                }
+
+
+            } else {
+                data = {
+                    segment: segment,
+                    script: script,
+                    expiry: expiry,
+                    callPut: null,
+                    strike: null
+                }
+            }
+
+
+            console.log(data);
+
+
 
             //use ajax and swel fire to add watchlist  using of post method 
-              $.ajax({
+            $.ajax({
                 url: "{{ route('add-watchlist') }}",
                 type: "POST",
                 headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
-            },
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+                },
                 data: data,
                 beforeSend: function() {
                     Swal.fire({
                         title: 'Adding Watchlist',
                         html: 'Please wait...',
                         didOpen: () => {
-                            Swal.showLoading()
+                            Swal.showLoading();
                         }
                     });
                 },
                 success: function(response) {
                     Swal.close();
-                    Swal.fire({
-                        title: 'Watchlist Added',
-                        text: 'Watchlist has been added successfully',
-                        icon: 'success',
-                        confirmButtonText: 'Okay'
-                    });
-                    console.log(response);
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'Okay'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message || 'An error occurred.',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
+                    }
                 },
-                error: function(error) {
+                error: function(xhr) {
                     Swal.close();
                     Swal.fire({
                         title: 'Error',
-                        text: 'An error occurred while adding watchlist',
+                        text: xhr.responseJSON?.message ||
+                            'An error occurred while adding the watchlist.',
                         icon: 'error',
                         confirmButtonText: 'Okay'
                     });
-                    console.error(error);
+                    console.error(xhr.responseJSON);
                 }
-
             });
-            
 
 
 
-            
+
+
+
         }
-
     </script>
 
 

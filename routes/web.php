@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
@@ -54,15 +55,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/fetch-nifty50-stock-data', [StockController::class, 'fetchNifty50StockData']);
     Route::get('/fetch-sensex-stock-data', [StockController::class, 'fetchSensexStockData']);
     Route::get('orders', [StockController::class, 'orderHistory'])->name('order');
-    Route::get('watchlist', [StockController::class, 'watchlist'])->name('watchlist');
-    Route::get('fetch-watchlist', [StockController::class, 'fetchWatchlist'])->name('fetch-watchlist');
+    Route::get('watchlist', [WatchlistController::class, 'watchlist'])->name('watchlist');
+    Route::get('fetch-watchlist', [WatchlistController::class, 'fetchWatchlist'])->name('fetch-watchlist');
 
-    Route::get('add-watchlist', [StockController::class, 'addWatchlist'])->name('add-watchlist');
-    // Route::get('remove-watchlist/{id}', [StockController::class, 'removeWatchlist'])->name('remove-watchlist');
-    // Route::get('buy/{id}', [StockController::class, 'buy'])->name('buy');
-    // Route::post('buy', [StockController::class, 'buyStock'])->name('buy-stock');
-    // Route::get('sell/{id}', [StockController::class, 'sell'])->name('sell');
-    // Route::post('sell', [StockController::class, 'sellStock'])->name('sell-stock');
+    Route::post('add-watchlist', [WatchlistController::class, 'addWatchlist'])->name('add-watchlist');
+    // Route::get('remove-watchlist/{id}', [WatchlistController::class, 'removeWatchlist'])->name('remove-watchlist');
+    // Route::get('buy/{id}', [WatchlistController::class, 'buy'])->name('buy');
+    // Route::post('buy', [WatchlistController::class, 'buyStock'])->name('buy-stock');
+    // Route::get('sell/{id}', [WatchlistController::class, 'sell'])->name('sell');
+    // Route::post('sell', [WatchlistController::class, 'sellStock'])->name('sell-stock');
     
 
 
