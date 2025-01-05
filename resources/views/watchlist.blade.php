@@ -1173,6 +1173,7 @@
                                                 <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
                                                     alt="Add Icon">
                                             </button>
+
                                         </div>
                             </form>
 
@@ -1182,6 +1183,9 @@
                     </div>
                 </div>
             </div>
+
+
+
             <?php
             $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
             
@@ -1294,7 +1298,7 @@
                                         <td id="open">24,844.90</td>
                                         <td id="close">24,844.90</td>
                                         <td>
-                                            <button class="btn btn-danger">Close</button>
+                                            <button onclick="removeWatchlist({{ $watchlist['id'] }})"  class="btn btn-danger">Close</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -1518,7 +1522,9 @@
                             text: response.message,
                             icon: 'success',
                             confirmButtonText: 'Okay'
-                        });
+                        }).then(() => {
+                location.reload();
+            });
                     } else {
                         Swal.fire({
                             title: 'Error',
@@ -1546,6 +1552,58 @@
 
 
 
+        }
+
+        function removeWatchlist(id){
+          
+            $.ajax({
+                url: "{{ route('remove-watchlist') }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+                },
+                data: {id: id},
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Removing Watchlist',
+                        html: 'Please wait...',
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(response) {
+                    Swal.close();
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'Okay'
+                        }).then(() => {
+                location.reload();
+            }); 
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: response.message || 'An error occurred.',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    Swal.fire({
+                        title: 'Error',
+                        text: xhr.responseJSON?.message ||
+                            'An error occurred while removing the watchlist.',
+                        icon: 'error',
+                        confirmButtonText: 'Okay'
+                    });
+                    console.error(xhr.responseJSON);
+                }
+            });
         }
     </script>
 

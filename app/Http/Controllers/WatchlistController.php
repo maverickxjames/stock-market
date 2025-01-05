@@ -144,4 +144,51 @@ class WatchlistController extends Controller
             ], 500);
         }
     }
+
+    public function removeWatchlist(Request $request)
+    {
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer', // ID is required and must be an integer
+        ]);
+
+        // Return validation errors, if any
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation error.',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        try {
+            // Find the watchlist entry by ID
+            $watchlist = Watchlist::find($request->id);
+
+            // Check if the watchlist entry exists
+            if ($watchlist) {
+                // Delete the watchlist entry
+                $watchlist->delete();
+
+                // Return a success response
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Watchlist entry removed successfully.',
+                ], 200);
+            } else {
+                // Return an error response if the watchlist entry does not exist
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Watchlist entry not found.',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            // Handle any errors that occur during deletion
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while removing the watchlist entry.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

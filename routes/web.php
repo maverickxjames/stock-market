@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('fetch-watchlist', [WatchlistController::class, 'fetchWatchlist'])->name('fetch-watchlist');
 
     Route::post('add-watchlist', [WatchlistController::class, 'addWatchlist'])->name('add-watchlist');
-    // Route::get('remove-watchlist/{id}', [WatchlistController::class, 'removeWatchlist'])->name('remove-watchlist');
+    Route::post('remove-watchlist', [WatchlistController::class, 'removeWatchlist'])->name('remove-watchlist');
     // Route::get('buy/{id}', [WatchlistController::class, 'buy'])->name('buy');
     // Route::post('buy', [WatchlistController::class, 'buyStock'])->name('buy-stock');
     // Route::get('sell/{id}', [WatchlistController::class, 'sell'])->name('sell');
