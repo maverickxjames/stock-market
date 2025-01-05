@@ -1,9 +1,9 @@
 @php
-$user = Auth::user();
-use App\Models\Script;
-use App\Models\Equity;
-use App\Models\Watchlist;
-use App\Providers\Helper;
+    $user = Auth::user();
+    use App\Models\Script;
+    use App\Models\Equity;
+    use App\Models\Watchlist;
+    use App\Providers\Helper;
 @endphp
 
 <!DOCTYPE html>
@@ -53,6 +53,11 @@ use App\Providers\Helper;
     <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+
+    <link href="vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+
+    {{-- import meta csrf token --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="vendor/datatables/responsive/responsive.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
@@ -190,7 +195,8 @@ use App\Providers\Helper;
                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
                                         viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+                                            <rect fill="#000000" x="4" y="11" width="16" height="2"
+                                                rx="1" />
                                             <rect fill="#000000" opacity="0.3"
                                                 transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
                                                 x="4" y="11" width="16" height="2" rx="1" />
@@ -217,7 +223,8 @@ use App\Providers\Helper;
                                     <li class="active dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon"></span>
                                             </div>
                                             <div class="user_info">
@@ -229,7 +236,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -241,7 +249,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon"></span>
                                             </div>
                                             <div class="user_info">
@@ -253,7 +262,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -266,7 +276,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -278,7 +289,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon"></span>
                                             </div>
                                             <div class="user_info">
@@ -290,7 +302,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -303,7 +316,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon"></span>
                                             </div>
                                             <div class="user_info">
@@ -315,7 +329,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -328,7 +343,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -340,7 +356,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon"></span>
                                             </div>
                                             <div class="user_info">
@@ -352,7 +369,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -364,7 +382,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon"></span>
                                             </div>
                                             <div class="user_info">
@@ -377,7 +396,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -389,7 +409,8 @@ use App\Providers\Helper;
                                     <li class="dlab-chat-user">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
-                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
+                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img"
+                                                    alt="">
                                                 <span class="online_icon offline"></span>
                                             </div>
                                             <div class="user_info">
@@ -423,8 +444,8 @@ use App\Providers\Helper;
                                     <p class="mb-0 text-success">Online</p>
                                 </div>
                                 <div class="dropdown">
-                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"><svg
-                                            xmlns="http://www.w3.org/2000/svg"
+                                    <a href="javascript:void(0);" data-bs-toggle="dropdown"
+                                        aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
                                             viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -449,7 +470,8 @@ use App\Providers\Helper;
                             <div class="card-body msg_card_body dlab-scroll" id="DLAB_W_Contacts_Body3">
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         Hi, how are you samim?
@@ -462,12 +484,14 @@ use App\Providers\Helper;
                                         <span class="msg_time_send">8:55 AM, Today</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         I am good too, thank you for your chat template
@@ -480,12 +504,14 @@ use App\Providers\Helper;
                                         <span class="msg_time_send">9:05 AM, Today</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         I am looking for your next templates
@@ -498,12 +524,14 @@ use App\Providers\Helper;
                                         <span class="msg_time_send">9:10 AM, Today</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         Bye, see you
@@ -512,7 +540,8 @@ use App\Providers\Helper;
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         Hi, how are you samim?
@@ -525,12 +554,14 @@ use App\Providers\Helper;
                                         <span class="msg_time_send">8:55 AM, Today</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         I am good too, thank you for your chat template
@@ -543,12 +574,14 @@ use App\Providers\Helper;
                                         <span class="msg_time_send">9:05 AM, Today</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         I am looking for your next templates
@@ -561,12 +594,14 @@ use App\Providers\Helper;
                                         <span class="msg_time_send">9:10 AM, Today</span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start mb-4">
                                     <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
+                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg"
+                                            alt="">
                                     </div>
                                     <div class="msg_cotainer">
                                         Bye, see you
@@ -669,7 +704,8 @@ use App\Providers\Helper;
                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
                                         viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+                                            <rect fill="#000000" x="4" y="11" width="16" height="2"
+                                                rx="1" />
                                             <rect fill="#000000" opacity="0.3"
                                                 transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
                                                 x="4" y="11" width="16" height="2" rx="1" />
@@ -806,7 +842,8 @@ use App\Providers\Helper;
                                 </a>
                             </li>
                             <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                                <a class="nav-link" href="javascript:void(0);" role="button"
+                                    data-bs-toggle="dropdown">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="32px" height="32px" viewBox="0 0 24 24" version="1.1"
                                         class="svg-main-icon">
@@ -814,7 +851,8 @@ use App\Providers\Helper;
                                             <path
                                                 d="M17,12 L18.5,12 C19.3284271,12 20,12.6715729 20,13.5 C20,14.3284271 19.3284271,15 18.5,15 L5.5,15 C4.67157288,15 4,14.3284271 4,13.5 C4,12.6715729 4.67157288,12 5.5,12 L7,12 L7.5582739,6.97553494 C7.80974924,4.71225688 9.72279394,3 12,3 C14.2772061,3 16.1902508,4.71225688 16.4417261,6.97553494 L17,12 Z"
                                                 fill="#fff" />
-                                            <rect fill="#fff" opacity="0.3" x="10" y="16" width="4" height="4" rx="2" />
+                                            <rect fill="#fff" opacity="0.3" x="10" y="16" width="4"
+                                                height="4" rx="2" />
                                         </g>
                                     </svg>
                                 </a>
@@ -921,29 +959,34 @@ use App\Providers\Helper;
                                                     <span class="d-block text-end">{{ $user['email'] }}</span>
                                                 </div>
                                             </div>
-                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                                                alt="">
                                         </div>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end header-profile3 " style="">
                                         <a onclick="window.location.href='{{ route('profile') }}'"
                                             class="dropdown-item ai-icon ">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+                                                alt="">
                                             <span class="ms-2">Profile </span>
                                         </a>
                                         <a onclick="window.location.href='{{ route('portfolio') }}'"
                                             class="dropdown-item ai-icon ">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/943/943026.png" alt="">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/943/943026.png"
+                                                alt="">
                                             <span class="ms-2">Portfolio </span>
                                         </a>
 
                                         <a onclick="window.location.href='{{ route('profile') }}'"
                                             class="dropdown-item ai-icon ">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/2698/2698011.png" alt="">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/2698/2698011.png"
+                                                alt="">
                                             <span class="ms-2">Settings </span>
                                         </a>
                                         <a onclick="window.location.href='{{ route('logout') }}'"
                                             class="dropdown-item ai-icon">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/15181/15181112.png" alt="">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/15181/15181112.png"
+                                                alt="">
                                             <span class="ms-2 text-danger">Logout </span>
                                         </a>
                                     </div>
@@ -984,12 +1027,14 @@ use App\Providers\Helper;
         ***********************************-->
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Add New</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -1026,252 +1071,253 @@ use App\Providers\Helper;
                 <!-- Row -->
                 <div class="row">
 
-                   
-
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header border-0 flex-wrap">
-                                    <h4 class="card-title font-sans font-bold">Add Your Watchlist</h4>
-                                    <div class="d-flex align-items-center">
-                                        <!-- Button trigger modal -->
 
 
-                                        <div class="search-container mb-0 ms-3">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search..."
-                                                    aria-label="Search">
-                                                <button class="btn btn-secondary" type="button">
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
-                                                        width="20px" height="20px" alt="">
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="coin-holding">
-                                        <div class="coin-box-warper">
-                                            <div class="">
-                                                <label class="form-label">SEGMENT</label>
-                                                <select id="searchable" class="form-control default-select h-auto wide"
-                                                    aria-label="Default select example">
-                                                    <?php
-                                                Script::all()->each(function($script){
-                                                    echo "<option value='$script->id'>$script->script_symbol</option>";
-                                                });
-                                                 ?>
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header border-0 flex-wrap">
+                                <h4 class="card-title font-sans font-bold">Add Your Watchlist</h4>
+                                <div class="d-flex align-items-center">
+                                    <!-- Button trigger modal -->
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="coin-box-warper">
-                                            <div class="">
-                                                <label class="form-label">Script</label>
-                                                <select id="searchable2" class="form-control default-select h-auto wide"
-                                                    aria-label="Default select example">
-                                                    <?php
-                                                Equity::orderBy('symbol','ASC')->get()->each(function($equity){
-                                                    echo "<option value='$equity->id'>$equity->symbol</option>";
-                                                });
-                                               ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="coin-box-warper">
-                                            <div class="">
-                                                <label class="form-label">Expiry</label>
-                                                <select class="form-control default-select h-auto wide"
-                                                    aria-label="Default select example">
-                                                    <option value="1">10-12-2024</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="coin-box-warper">
-                                            <div class="">
-                                                <label class="form-label">CALL / PUT</label>
-                                                <select class="form-control default-select h-auto wide"
-                                                    aria-label="Default select example">
-                                                    <option selected>Select</option>
-                                                    <option value="1">CE</option>
-                                                    <option value="2">PE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="coin-box-warper">
-                                            <div class="">
-                                                <label class="form-label">STRIKE</label>
-                                                <select id="searchable3" class="form-control default-select h-auto wide"
-                                                    aria-label="Default select example">
-                                                    <option selected>Select Status</option>
-                                                    <option value="1">Published</option>
-                                                    <option value="2">Draft</option>
-                                                    <option value="3">Trash</option>
-                                                    <option value="4">Private</option>
-                                                    <option value="5">Pending</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="button-container d-flex justify-content-center mt-3">
-                                            <button
-                                                class="image-button border-0 d-flex align-items-center justify-content-center"
-                                                type="button">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
-                                                    alt="Add Icon">
+
+                                    <div class="search-container mb-0 ms-3">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search..."
+                                                aria-label="Search">
+                                            <button class="btn btn-secondary" type="button">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
+                                                    width="20px" height="20px" alt="">
                                             </button>
                                         </div>
-
-
                                     </div>
-
                                 </div>
                             </div>
+                            <div class="card-body pt-0">
+                                <div class="coin-holding">
+                                    <form>
+                                    @csrf
+                                    <div class="coin-box-warper">
+                                        <div class="">
+                                            <label class="form-label">SEGMENT</label>
+                                            <select onchange="dis()" id="searchable"
+                                                class="form-control segment default-select h-auto wide"
+                                                aria-label="Default select example" data-role="segment-select">
+                                                <?php
+                                                Script::all()->each(function ($script) {
+                                                    echo "<option value='$script->id'>$script->script_symbol</option>";
+                                                });
+                                                ?>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="coin-box-warper">
+                                        <div class="">
+                                            <label class="form-label">Script</label>
+                                            <select id="searchable2" class="form-control default-select h-auto wide"
+                                                aria-label="Default select example">
+                                                <?php
+                                                Equity::orderBy('symbol', 'ASC')
+                                                    ->get()
+                                                    ->each(function ($equity) {
+                                                        echo "<option value='$equity->id'>$equity->symbol</option>";
+                                                    });
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="coin-box-warper">
+                                        <div class="">
+                                            <label class="form-label">Expiry</label>
+                                            <select class="form-control default-select h-auto wide"
+                                                aria-label="Default select example">
+                                                <option value="1">10-12-2024</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="coin-box-warper">
+                                        <div class="">
+                                            <label class="form-label">CALL / PUT</label>
+                                            <select id="callPutSelect" class="form-control default-select h-auto wide"
+                                                aria-label="Default select example" disabled>
+                                                <option selected>Select</option>
+                                                <option value="1">CE</option>
+                                                <option value="2">PE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="coin-box-warper">
+                                        <div class="">
+                                            <label class="form-label">STRIKE</label>
+                                            <select id="searchable3"
+                                                class="form-control strike default-select h-auto wide"
+                                                aria-label="Default select example" disabled>
+                                                <option selected>Select Status</option>
+                                                <option value="1">Published</option>
+                                                <option value="2">Draft</option>
+                                                <option value="3">Trash</option>
+                                                <option value="4">Private</option>
+                                                <option value="5">Pending</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="button-container d-flex justify-content-center mt-3">
+                                        <button onsubmit="addWatchlist()"
+                                            class="image-button border-0 d-flex align-items-center justify-content-center"
+                                            type="button">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
+                                                alt="Add Icon">
+                                        </button>
+                                    </div>
+                                    </form>
+
+
+                                </div>
+
+                            </div>
                         </div>
-                        <?php 
-                            $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
-
-                            if ($watchlists->count() > 0) {
-                                $mergedData = []; // Array to store all merged watchlist data
-
-                                foreach ($watchlists as $watchlist) {
-                                    // Retrieve related `script` and `equity` data
-                                    $script = Script::find($watchlist->script_id); // Using `find` for brevity
-                                    $equity = Equity::find($watchlist->script_name);
-
-                                    // Ensure `script` and `equity` are found before merging
-                                    if ($script && $equity) {
-                                        $mergedItem = array_merge(
-                                            $watchlist->toArray(),
-                                            $script->toArray(),
-                                            $equity->toArray()
-                                        );
-                                        $mergedData[] = $mergedItem;
-                                    }
-                                }
-
-                              
-                            } else {
-                                echo "No watchlist items found.";
+                    </div>
+                    <?php
+                    $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
+                    
+                    if ($watchlists->count() > 0) {
+                        $mergedData = []; // Array to store all merged watchlist data
+                    
+                        foreach ($watchlists as $watchlist) {
+                            // Retrieve related `script` and `equity` data
+                            $script = Script::find($watchlist->script_id); // Using `find` for brevity
+                            $equity = Equity::find($watchlist->script_name);
+                    
+                            // Ensure `script` and `equity` are found before merging
+                            if ($script && $equity) {
+                                $mergedItem = array_merge($watchlist->toArray(), $script->toArray(), $equity->toArray());
+                                $mergedData[] = $mergedItem;
                             }
-
-                            ?>
-
-
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header border-0 flex-wrap">
-                                    <h4 class="card-title font-sans font-bold">NSE Option</h4>
-                                    <div class="d-flex align-items-center">
-                                        <!-- Button trigger modal -->
+                        }
+                    } else {
+                        echo 'No watchlist items found.';
+                    }
+                    
+                    ?>
 
 
-                                        <div class="search-container mb-0 ms-3">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search..."
-                                                    aria-label="Search">
-                                                <button class="btn btn-secondary" type="button">
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
-                                                        width="20px" height="20px" alt="">
-                                                </button>
-                                            </div>
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header border-0 flex-wrap">
+                                <h4 class="card-title font-sans font-bold">NSE Option</h4>
+                                <div class="d-flex align-items-center">
+                                    <!-- Button trigger modal -->
+
+
+                                    <div class="search-container mb-0 ms-3">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search..."
+                                                aria-label="Search">
+                                            <button class="btn btn-secondary" type="button">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
+                                                    width="20px" height="20px" alt="">
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body pt-0">
-                                    <div class="coin-holding">
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="coin-holding">
 
-
-                                    </div>
 
                                 </div>
-
 
                             </div>
+
+
                         </div>
+                    </div>
 
-                        <div class="col-12">
+                    <div class="col-12">
 
 
 
 
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">NSEFUT</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="example" class="display min-w850">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        S.No
-                                                    </th>
-                                                    <th>NSE FUTURE Sym</th>
-                                                    <th>BID RATE</th>
-                                                    <th>ASK RATE</th>
-                                                    <th>LTP</th>
-                                                    <th>CHANGE %</th>
-                                                    <th>NET CHANGE</th>
-                                                    <th>HIGH</th>
-                                                    <th>LOW</th>
-                                                    <th>OPEN</th>
-                                                    <th>CLOSE</th>
-                                                    <th class="text-end">REMOVE</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">NSEFUT</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display min-w850">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    S.No
+                                                </th>
+                                                <th>NSE FUTURE Sym</th>
+                                                <th>BID RATE</th>
+                                                <th>ASK RATE</th>
+                                                <th>LTP</th>
+                                                <th>CHANGE %</th>
+                                                <th>NET CHANGE</th>
+                                                <th>HIGH</th>
+                                                <th>LOW</th>
+                                                <th>OPEN</th>
+                                                <th>CLOSE</th>
+                                                <th class="text-end">REMOVE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
                                             $i = 1;
                                                 foreach($mergedData as $watchlist){
                                                     if($watchlist['script_symbol'] == 'NSEFUT'){
                                                         ?>
-                                                <tr>
-                                                    <td>
-                                                        {{ $i++ }}
-                                                    </td>
-                                                    <td id="symbol">{{ $watchlist['symbol'] }}</td>
-                                                    <td id="bid">24,775.00</td>
-                                                    <td id="ask">24,782.00</td>
-                                                    <td id="ltp">24,775.00</td>
-                                                    <td id="ch">0.04</td>
-                                                    <td>
-                                                        <span class="badge light badge-danger">
-                                                            <i class="fa fa-circle text-danger me-1"></i>
-                                                            10.65
-                                                        </span>
-                                                    </td>
-                                                    <td id="high">24,844.90</td>
-                                                    <td id="low">24,844.90</td>
-                                                    <td id="open">24,844.90</td>
-                                                    <td id="close">24,844.90</td>
-                                                    <td>
-                                                        <button class="btn btn-danger">Close</button>
-                                                    </td>
-                                                </tr>
-                                                <?php
+                                            <tr>
+                                                <td>
+                                                    {{ $i++ }}
+                                                </td>
+                                                <td id="symbol">{{ $watchlist['symbol'] }}</td>
+                                                <td id="bid">24,775.00</td>
+                                                <td id="ask">24,782.00</td>
+                                                <td id="ltp">24,775.00</td>
+                                                <td id="ch">0.04</td>
+                                                <td>
+                                                    <span class="badge light badge-danger">
+                                                        <i class="fa fa-circle text-danger me-1"></i>
+                                                        10.65
+                                                    </span>
+                                                </td>
+                                                <td id="high">24,844.90</td>
+                                                <td id="low">24,844.90</td>
+                                                <td id="open">24,844.90</td>
+                                                <td id="close">24,844.90</td>
+                                                <td>
+                                                    <button class="btn btn-danger">Close</button>
+                                                </td>
+                                            </tr>
+                                            <?php
                                                     }
                                                     
                                                 }
                                                 ?>
 
 
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-
-
-
-
-
-
-                            
-
-
-
-
-
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
 
                 </div>
 
@@ -1343,6 +1389,9 @@ use App\Providers\Helper;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
+    {{-- swel fire cdn --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
             $('#searchable').select2({
@@ -1355,7 +1404,6 @@ use App\Providers\Helper;
                 placeholder: "Search and select a state"
             });
         });
-
     </script>
 
     <script src="{{ asset('js/app.js') }}"></script>
@@ -1380,8 +1428,91 @@ use App\Providers\Helper;
                 console.log(event);
 
             });
+    </script>
+
+
+    <script>
+        function dis() {
+            var segment = document.querySelector('.segment').value;
+            var callPutSelect = document.getElementById('callPutSelect');
+            var strike = document.querySelector('.strike');
+
+            if (segment == 2) {
+                callPutSelect.disabled = false;
+                strike.disabled = false;
+            } else {
+                callPutSelect.disabled = true;
+                strike.disabled = true;
+            }
+        }
+
+        function addWatchlist() {
+            var segment = document.querySelector('.segment').value;
+            var script = document.querySelector('.script').value;
+            var expiry = document.querySelector('.expiry').value;
+            var callPut = document.querySelector('.callPut').value;
+            var strike = document.querySelector('.strike').value;
+
+            var data = {
+                segment: segment,
+                script: script,
+                expiry: expiry,
+                callPut: callPut,
+                strike: strike
+            };
+
+            //use ajax and swel fire to add watchlist  using of post method 
+              $.ajax({
+                url: "{{ route('add-watchlist') }}",
+                type: "POST",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+            },
+                data: data,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Adding Watchlist',
+                        html: 'Please wait...',
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                },
+                success: function(response) {
+                    Swal.close();
+                    Swal.fire({
+                        title: 'Watchlist Added',
+                        text: 'Watchlist has been added successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Okay'
+                    });
+                    console.log(response);
+                },
+                error: function(error) {
+                    Swal.close();
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred while adding watchlist',
+                        icon: 'error',
+                        confirmButtonText: 'Okay'
+                    });
+                    console.error(error);
+                }
+
+            });
+            
+
+
+
+            
+        }
 
     </script>
+
+
+
+
+
 
 </body>
 
