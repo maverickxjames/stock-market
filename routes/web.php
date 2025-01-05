@@ -55,6 +55,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/fetch-sensex-stock-data', [StockController::class, 'fetchSensexStockData']);
     Route::get('orders', [StockController::class, 'orderHistory'])->name('order');
     Route::get('watchlist', [StockController::class, 'watchlist'])->name('watchlist');
+    Route::get('fetch-watchlist', [StockController::class, 'fetchWatchlist'])->name('fetch-watchlist');
+
+    // Route::get('add-watchlist/{id}', [StockController::class, 'addWatchlist'])->name('add-watchlist');
+    // Route::get('remove-watchlist/{id}', [StockController::class, 'removeWatchlist'])->name('remove-watchlist');
+    // Route::get('buy/{id}', [StockController::class, 'buy'])->name('buy');
+    // Route::post('buy', [StockController::class, 'buyStock'])->name('buy-stock');
+    // Route::get('sell/{id}', [StockController::class, 'sell'])->name('sell');
+    // Route::post('sell', [StockController::class, 'sellStock'])->name('sell-stock');
+    
 
 
     Route::get('admin/home',[AdminController::class, 'home'])->name('admin_home');
@@ -67,22 +76,6 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/user/{id}',[AdminController::class, 'user'])->name("user");
     Route::post('admin/approve-deposit', [AdminController::class, 'approveDeposit'])->name('approve-deposit');
 Route::post('admin/approve-withdraw', [AdminController::class, 'approveWithdraw'])->name('approve-withdraw');
-    Route::get('admin/deposit-txn', [AdminController::class, 'depositTxn'])->name('deposit_txn');
-    Route::get('admin/withdraw-txn', [AdminController::class, 'withdrawTxn'])->name('withdraw_txn');
-
-    Route::get('admin/settings', [AdminController::class, 'settings'])->name('settings');
-    Route::post('/admin/update-min-withdraw', [AdminController::class, 'updateMinWithdraw'])->name('settings.updateMinWithdraw');
-Route::post('/admin/update-min-recharge', [AdminController::class, 'updateMinRecharge'])->name('settings.updateMinRecharge');
-
-    Route::post('/admin/update-withdraw-msg', [AdminController::class, 'updateWithdrawMsg'])->name('settings.updateWithdrawMsg');
-Route::post('/admin/update-deposit-msg', [AdminController::class, 'updateDepositMsg'])->name('settings.updateDepositMsg');
-Route::post('/admin/update-upi', [AdminController::class, 'updateUpi'])->name('settings.updateUpi');
-Route::post('/admin/update-withdraw-status', [AdminController::class, 'updateWithdrawStatus'])->name('settings.updateWithdrawStatus');
-Route::post('admin/update-recharge-status', [AdminController::class, 'updateRechargeStatus'])->name('settings.updateRechargeStatus');
-Route::post('admin/update-upi-status', [AdminController::class, 'updateUpiStatus'])->name('settings.updateUpiStatus');
-    
-
-
 
     Route::post('/payment-link', [PaymentController::class, 'generatePaymentLink'])->name('payment-link');
     Route::get('deposit', [PaymentController::class, 'deposit'])->name('deposit');

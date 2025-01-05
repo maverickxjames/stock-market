@@ -6,7 +6,7 @@ use App\Models\Script;
 use App\Models\Equity;
 use App\Models\watchlist;
 
-class Helper
+class   Helper
 {
 
     public static function allCompanyData($userid)

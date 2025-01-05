@@ -1026,109 +1026,107 @@ use App\Providers\Helper;
                 <!-- Row -->
                 <div class="row">
 
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-header border-0 flex-wrap">
-                                <h4 class="card-title font-sans font-bold">Add Your Watchlist</h4>
-                                <div class="d-flex align-items-center">
-                                    <!-- Button trigger modal -->
+                   
+
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header border-0 flex-wrap">
+                                    <h4 class="card-title font-sans font-bold">Add Your Watchlist</h4>
+                                    <div class="d-flex align-items-center">
+                                        <!-- Button trigger modal -->
 
 
-                                    <div class="search-container mb-0 ms-3">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search..."
-                                                aria-label="Search">
-                                            <button class="btn btn-secondary" type="button">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
-                                                    width="20px" height="20px" alt="">
-                                            </button>
+                                        <div class="search-container mb-0 ms-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search..."
+                                                    aria-label="Search">
+                                                <button class="btn btn-secondary" type="button">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
+                                                        width="20px" height="20px" alt="">
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="coin-holding">
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">SEGMENT</label>
-                                            <select id="searchable" class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <?php
+                                <div class="card-body pt-0">
+                                    <div class="coin-holding">
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">SEGMENT</label>
+                                                <select id="searchable" class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <?php
                                                 Script::all()->each(function($script){
-                                                    echo "<option value='$script->id'>$script->symbol</option>";
+                                                    echo "<option value='$script->id'>$script->script_symbol</option>";
                                                 });
-                                                ?>
-                                                {{-- <option value="1">Published</option>
-                                                <option value="2">Draft</option>
-                                                <option value="3">Trash</option>
-                                                <option value="4">Private</option>
-                                                <option value="5">Pending</option> --}}
-                                            </select>
+                                                 ?>
+
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">Script</label>
-                                            <select id="searchable2" class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <?php
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">Script</label>
+                                                <select id="searchable2" class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <?php
                                                 Equity::orderBy('symbol','ASC')->get()->each(function($equity){
                                                     echo "<option value='$equity->id'>$equity->symbol</option>";
                                                 });
                                                ?>
-                                            </select>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">Expiry</label>
-                                            <select class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <option value="1">10-12-2024</option>
-                                            </select>
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">Expiry</label>
+                                                <select class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <option value="1">10-12-2024</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">CALL / PUT</label>
-                                            <select class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <option selected>Select</option>
-                                                <option value="1">CE</option>
-                                                <option value="2">PE</option>
-                                            </select>
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">CALL / PUT</label>
+                                                <select class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <option selected>Select</option>
+                                                    <option value="1">CE</option>
+                                                    <option value="2">PE</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="coin-box-warper">
-                                        <div class="">
-                                            <label class="form-label">STRIKE</label>
-                                            <select id="searchable3" class="form-control default-select h-auto wide"
-                                                aria-label="Default select example">
-                                                <option selected>Select Status</option>
-                                                <option value="1">Published</option>
-                                                <option value="2">Draft</option>
-                                                <option value="3">Trash</option>
-                                                <option value="4">Private</option>
-                                                <option value="5">Pending</option>
-                                            </select>
+                                        <div class="coin-box-warper">
+                                            <div class="">
+                                                <label class="form-label">STRIKE</label>
+                                                <select id="searchable3" class="form-control default-select h-auto wide"
+                                                    aria-label="Default select example">
+                                                    <option selected>Select Status</option>
+                                                    <option value="1">Published</option>
+                                                    <option value="2">Draft</option>
+                                                    <option value="3">Trash</option>
+                                                    <option value="4">Private</option>
+                                                    <option value="5">Pending</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="button-container d-flex justify-content-center mt-3">
-                                        <button
-                                            class="image-button border-0 d-flex align-items-center justify-content-center"
-                                            type="button">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
-                                                alt="Add Icon">
-                                        </button>
-                                    </div>
+                                        <div class="button-container d-flex justify-content-center mt-3">
+                                            <button
+                                                class="image-button border-0 d-flex align-items-center justify-content-center"
+                                                type="button">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png"
+                                                    alt="Add Icon">
+                                            </button>
+                                        </div>
 
+
+                                    </div>
 
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                    <?php 
+                        <?php 
                             $watchlists = Watchlist::where('userid', Auth::user()->id)->get();
 
                             if ($watchlists->count() > 0) {
@@ -1158,264 +1156,122 @@ use App\Providers\Helper;
                             ?>
 
 
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-header border-0 flex-wrap">
-                                <h4 class="card-title font-sans font-bold">NSE Option</h4>
-                                <div class="d-flex align-items-center">
-                                    <!-- Button trigger modal -->
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header border-0 flex-wrap">
+                                    <h4 class="card-title font-sans font-bold">NSE Option</h4>
+                                    <div class="d-flex align-items-center">
+                                        <!-- Button trigger modal -->
 
 
-                                    <div class="search-container mb-0 ms-3">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search..."
-                                                aria-label="Search">
-                                            <button class="btn btn-secondary" type="button">
-                                                <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
-                                                    width="20px" height="20px" alt="">
-                                            </button>
+                                        <div class="search-container mb-0 ms-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Search..."
+                                                    aria-label="Search">
+                                                <button class="btn btn-secondary" type="button">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/151/151773.png"
+                                                        width="20px" height="20px" alt="">
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body pt-0">
-                                <div class="coin-holding">
+                                <div class="card-body pt-0">
+                                    <div class="coin-holding">
 
+
+                                    </div>
 
                                 </div>
 
+
                             </div>
-
-
                         </div>
-                    </div>
 
-                    <div class="col-12">
-
+                        <div class="col-12">
 
 
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">NSEFUT</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example5" class="display min-w850">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    S.No
-                                                </th>
-                                                <th>NSE FUTURE Sym</th>
-                                                <th>BID RATE</th>
-                                                <th>ASK RATE</th>
-                                                <th>LTP</th>
-                                                <th>CHANGE %</th>
-                                                <th>NET CHANGE</th>
-                                                <th>HIGH</th>
-                                                <th>LOW</th>
-                                                <th>OPEN</th>
-                                                <th>CLOSE</th>
-                                                <th class="text-end">REMOVE</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">NSEFUT</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example" class="display min-w850">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        S.No
+                                                    </th>
+                                                    <th>NSE FUTURE Sym</th>
+                                                    <th>BID RATE</th>
+                                                    <th>ASK RATE</th>
+                                                    <th>LTP</th>
+                                                    <th>CHANGE %</th>
+                                                    <th>NET CHANGE</th>
+                                                    <th>HIGH</th>
+                                                    <th>LOW</th>
+                                                    <th>OPEN</th>
+                                                    <th>CLOSE</th>
+                                                    <th class="text-end">REMOVE</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
                                             $i = 1;
                                                 foreach($mergedData as $watchlist){
                                                     if($watchlist['script_symbol'] == 'NSEFUT'){
                                                         ?>
-                                            <tr>
-                                                <td>
-                                                    {{ $i++ }}
-                                                </td>
-                                                <td id="symbol">{{ $watchlist['symbol'] }}</td>
-                                                <td id="bid">24,775.00</td>
-                                                <td id="ask">24,782.00</td>
-                                                <td id="ltp">24,775.00</td>
-                                                <td id="ch">0.04</td>
-                                                <td>
-                                                    <span class="badge light badge-danger">
-                                                        <i class="fa fa-circle text-danger me-1"></i>
-                                                        10.65
-                                                    </span>
-                                                </td>
-                                                <td id="high">24,844.90</td>
-                                                <td id="low">24,844.90</td>
-                                                <td id="open">24,844.90</td>
-                                                <td id="close">24,844.90</td>
-                                                <td>
-                                                    <button class="btn btn-danger">Close</button>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                                <tr>
+                                                    <td>
+                                                        {{ $i++ }}
+                                                    </td>
+                                                    <td id="symbol">{{ $watchlist['symbol'] }}</td>
+                                                    <td id="bid">24,775.00</td>
+                                                    <td id="ask">24,782.00</td>
+                                                    <td id="ltp">24,775.00</td>
+                                                    <td id="ch">0.04</td>
+                                                    <td>
+                                                        <span class="badge light badge-danger">
+                                                            <i class="fa fa-circle text-danger me-1"></i>
+                                                            10.65
+                                                        </span>
+                                                    </td>
+                                                    <td id="high">24,844.90</td>
+                                                    <td id="low">24,844.90</td>
+                                                    <td id="open">24,844.90</td>
+                                                    <td id="close">24,844.90</td>
+                                                    <td>
+                                                        <button class="btn btn-danger">Close</button>
+                                                    </td>
+                                                </tr>
+                                                <?php
                                                     }
                                                     
                                                 }
                                                 ?>
 
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
+
+
+
+
+
+
+                            
+
+
+
+
+
                         </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Patient</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example5" class="display min-w850">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    S.No
-                                                </th>
-                                                <th>Order ID</th>
-                                                <th>Date Check in</th>
-                                                <th>Name</th>
-                                                <th>Assgined</th>
-                                                <th>Disease</th>
-                                                <th>Status</th>
-                                                <th>Table no</th>
-                                                <th class="text-end">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>#P-00001</td>
-                                                <td>26/02/2020, 12:42 AM</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Dr. Cedric</td>
-                                                <td>Cold & Flu</td>
-                                                <td>
-                                                    <span class="badge light badge-danger">
-                                                        <i class="fa fa-circle text-danger me-1"></i>
-                                                        New Patient
-                                                    </span>
-                                                </td>
-                                                <td>AB-001</td>
-                                                <td>
-                                                    <button class="btn btn-danger">Close</button>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Patient</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example5" class="display min-w850">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    S.No
-                                                </th>
-                                                <th>Order ID</th>
-                                                <th>Date Check in</th>
-                                                <th>Name</th>
-                                                <th>Assgined</th>
-                                                <th>Disease</th>
-                                                <th>Status</th>
-                                                <th>Table no</th>
-                                                <th class="text-end">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>#P-00001</td>
-                                                <td>26/02/2020, 12:42 AM</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Dr. Cedric</td>
-                                                <td>Cold & Flu</td>
-                                                <td>
-                                                    <span class="badge light badge-danger">
-                                                        <i class="fa fa-circle text-danger me-1"></i>
-                                                        New Patient
-                                                    </span>
-                                                </td>
-                                                <td>AB-001</td>
-                                                <td>
-                                                    <button class="btn btn-danger">Close</button>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Patient</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="example5" class="display min-w850">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    S.No
-                                                </th>
-                                                <th>Order ID</th>
-                                                <th>Date Check in</th>
-                                                <th>Name</th>
-                                                <th>Assgined</th>
-                                                <th>Disease</th>
-                                                <th>Status</th>
-                                                <th>Table no</th>
-                                                <th class="text-end">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>#P-00001</td>
-                                                <td>26/02/2020, 12:42 AM</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Dr. Cedric</td>
-                                                <td>Cold & Flu</td>
-                                                <td>
-                                                    <span class="badge light badge-danger">
-                                                        <i class="fa fa-circle text-danger me-1"></i>
-                                                        New Patient
-                                                    </span>
-                                                </td>
-                                                <td>AB-001</td>
-                                                <td>
-                                                    <button class="btn btn-danger">Close</button>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
 
                 </div>
 
@@ -1489,40 +1345,41 @@ use App\Providers\Helper;
 
     <script>
         $(document).ready(function() {
-        $('#searchable').select2({
-            placeholder: "Search and select a state"
+            $('#searchable').select2({
+                placeholder: "Search and select a state"
+            });
+            $('#searchable2').select2({
+                placeholder: "Search and select a state"
+            });
+            $('#searchable3').select2({
+                placeholder: "Search and select a state"
+            });
         });
-        $('#searchable2').select2({
-            placeholder: "Search and select a state"
-        });
-        $('#searchable3').select2({
-            placeholder: "Search and select a state"
-        });
-    });
+
     </script>
 
     <script src="{{ asset('js/app.js') }}"></script>
 
     <script>
         Echo.channel('watchlists')
-.listen('Watchlist', (event) => {
-//     if (event.watchlist && event.watchlist.length > 0) {
-//     var symbol = event.watchlist[0]?.trade?.metadata?.symbol || 'N/A';
-//     var ltp = event.watchlist[0]?.trade?.metadata?.lastPrice || 'N/A';
-//     var ch = event.watchlist[0]?.trade?.details?.preOpenMarket?.Change || 'N/A';
-//
-//     $('#symbol').html(symbol);
-//     $('#ltp').html(ltp);
-//     $('#ch').html(ch);
-// } else {
-//     console.error('Watchlist is empty or undefined');
-// }
+            .listen('Watchlist', (event) => {
+                //     if (event.watchlist && event.watchlist.length > 0) {
+                //     var symbol = event.watchlist[0]?.trade?.metadata?.symbol || 'N/A';
+                //     var ltp = event.watchlist[0]?.trade?.metadata?.lastPrice || 'N/A';
+                //     var ch = event.watchlist[0]?.trade?.details?.preOpenMarket?.Change || 'N/A';
+                //
+                //     $('#symbol').html(symbol);
+                //     $('#ltp').html(ltp);
+                //     $('#ch').html(ch);
+                // } else {
+                //     console.error('Watchlist is empty or undefined');
+                // }
 
-    $('#ltp').html(event.watchlist);
+                $('#ltp').html(event.watchlist);
 
-    console.log(event);
+                console.log(event);
 
-});
+            });
 
     </script>
 
