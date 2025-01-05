@@ -185,7 +185,17 @@ class StockController extends Controller
 
     public function fetchWatchlist(Request $request)
     {
-        $accessToken = 'eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIzS0JSNTgiLCJqdGkiOiI2Nzc4ZGFhODhhMjkwNDQ2YTZjMjk5MjQiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaWF0IjoxNzM1OTczNTQ0LCJpc3MiOiJ1ZGFwaS1nYXRld2F5LXNlcnZpY2UiLCJleHAiOjE3MzYwMjgwMDB9.ejgJI1MPkxQMIgVn2JgtHpRnHJ5xxhmvRfy4Bw35Mus';
+
+        $token = DB::select("SELECT * FROM upstocks WHERE isExpired = 0 ORDER BY id DESC LIMIT 1");
+        // $accessToken = "";
+        if ($token) {
+            $accessToken = $token[0]->token;
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No token found',
+            ], 500);
+        }
 
         $instrumentKeys = "";
 
@@ -198,12 +208,12 @@ class StockController extends Controller
             ->get(['Isin']);
 
         foreach ($watchlist as $key => $value) {
-            $instrumentKeys .= 'NSE_EQ|' . $value->Isin. ',';
+            $instrumentKeys .= 'NSE_EQ|' . $value->Isin . ',';
         }
 
         $instrumentKeys = rtrim($instrumentKeys, ',');
 
-      
+
 
 
 
@@ -216,21 +226,17 @@ class StockController extends Controller
             ]);
 
             if ($response->successful()) {
-                echo "<pre>";
-                print_r($response->json());
-                // return response()->json([
-                //     'success' => true,
-                //     'data' => $response->json(),
-                // ]);
-            }else{
+                // websocket 
+                $data = $response->json();
+                
+                event(new \App\Events\Watchlist($data));
+            } else {
                 return response()->json([
                     'success' => false,
                     'message' => 'Failed to fetch data from API',
                     'error' => $response->json(),
                 ], $response->status());
             }
-
-            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

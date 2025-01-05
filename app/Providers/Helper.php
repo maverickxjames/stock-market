@@ -5,6 +5,9 @@ namespace App\Providers;
 use App\Models\Script;
 use App\Models\Equity;
 use App\Models\watchlist;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class   Helper
 {
@@ -80,5 +83,66 @@ class   Helper
         $fluctuation = rand(-$range * 100, $range * 100) / 100; // Supports decimals
 
         return $number + $fluctuation;
+    }
+
+    public function fetchWatchlist(Request $request)
+    {
+
+        $token = DB::select("SELECT * FROM upstocks WHERE isExpired = 0 ORDER BY id DESC LIMIT 1");
+        // $accessToken = "";
+        if ($token) {
+            $accessToken = $token[0]->token;
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No token found',
+            ], 500);
+        }
+
+        $instrumentKeys = "";
+
+        $watchlist = DB::table('equities')
+            ->whereIn('id', function ($query) {
+                $query->select('script_name') // Replace 'equity_id' with the correct column name from watchlists
+                    ->distinct()
+                    ->from('watchlists');
+            })
+            ->get(['Isin']);
+
+        foreach ($watchlist as $key => $value) {
+            $instrumentKeys .= 'NSE_EQ|' . $value->Isin . ',';
+        }
+
+        $instrumentKeys = rtrim($instrumentKeys, ',');
+
+
+
+
+
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer ' . $accessToken,
+            ])->get('https://api.upstox.com/v2/market-quote/quotes', [
+                'instrument_key' => $instrumentKeys,
+            ]);
+
+            if ($response->successful()) {
+                // websocket 
+                $data = $response->json();
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to fetch data from API',
+                    'error' => $response->json(),
+                ], $response->status());
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
