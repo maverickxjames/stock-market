@@ -701,8 +701,8 @@ use App\Models\User;
                     const response = data;
 
 
-                    if (response === 'success') {
-                        const message = response.type === 'confirm' ? 'Transaction Approved Successfully' :
+                    if (response === 'success_confirm' || response === 'success_decline') {
+                        const message = response === 'success_confirm' ? 'Transaction Approved Successfully' :
                             'Transaction Declined Successfully';
 
                         Swal.fire({

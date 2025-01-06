@@ -1,6 +1,7 @@
 @php
 	$user=Auth::user();
     use App\Models\payment_mode;
+	use App\Models\setting;
 @endphp
 
 <!DOCTYPE html>
@@ -1060,28 +1061,25 @@
                             <br>
                             <h3 class="fw-semibold title-color text-center">Choose Payment Method</h3>
                             {{-- <br> --}}
-                             <ul class="payment-method-list list-unstyled">
-                                <?php
-                                // $paymentModes = payment_mode::all();
-                                $paymentModes=payment_mode::where('status',1)->get();
-                                foreach ($paymentModes as $row)
-                                {
-                                ?>
-                                    <li class="payment-method-item border p-3 rounded mb-3">
-                                        {{-- <div class="form-check d-flex align-items-center"> --}}
-                                           
-                                            <label class="form-check-label d-flex align-items-center" for="paymentMethod">
-                                                <img src="<?= $row['icon'] ?>" alt="<?= $row['pay_name'] ?>" class="img-fluid me-2" style="width: 30px;">
-                                                <?= $row['pay_name'] ?>
-                                            </label>
-                                            <input class="form-check-input me-3" id="<?= $row['slug'] ?>" type="radio" name="paymentMethod">
-                                        {{-- </div> --}}
-                                    </li>
-                                <?php
-                                }
-                                ?>
-                            </ul>
-                     
+                            <ul class="payment-method-list list-unstyled">
+								<?php
+								// Fetch payment modes and settings
+								$paymentModes = payment_mode::where('status', 1)->get();
+								$settings = setting::where('id', 1)->first();
+							
+								foreach ($paymentModes as $row) {
+								?>
+									<li class="payment-method-item border p-3 rounded mb-3">
+										<label class="form-check-label d-flex align-items-center" for="paymentMethod">
+											<img src="<?= $row['icon'] ?>" alt="<?= $row['pay_name'] ?>" class="img-fluid me-2" style="width: 30px;">
+											<?= $row['pay_name'] ?>
+										</label>
+										<input class="form-check-input me-3" id="<?= $row['slug'] ?>" type="radio" name="paymentMethod">
+									</li>
+								<?php
+								}
+								?>
+							</ul>
                             <!-- Proceed Button -->
                             <div class="text-center mt-4">
                                 <button onclick="initiatePayment()" class="btn btn-primary w-100">Proceed to Pay</button>
@@ -1094,7 +1092,7 @@
                                 <ul class="list-unstyled">
                                     <li>
                                         <h5>Minimum Recharge</h5>
-                                        {{-- <p>Minimum Recharge is <?= $setting['minRecharge'] ?> INR</p> --}}
+                                        <p>Minimum Recharge is <?= $settings['minRecharge'] ?> INR</p>
                                     </li>
                                     <li>
                                         <h5>Fill UTR</h5>
@@ -1173,7 +1171,9 @@
             document.getElementById("amount").value = value;
         }
 
-        function initiatePayment() {
+    
+
+		function initiatePayment() {
             var amount = document.getElementById("amount").value;
             
             var payment_mode = document.querySelector('input[name="paymentMethod"]:checked');
@@ -1198,6 +1198,22 @@
                 });
                 return;
             }
+
+			<?php 
+			$settings=setting::where('id',1)->first();
+			?>
+			if(amount < <?= $settings['minRecharge'] ?>){
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Minimum Recharge is <?= $settings['minRecharge'] ?> INR',
+				});
+				return;
+			}
+
+
+
+		    
 
             // Ajax Payment Link Generation and Redirect to Payment Gateway Page 
 
@@ -1267,6 +1283,7 @@
             });
 
         }
+
 
         
 

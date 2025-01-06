@@ -148,7 +148,7 @@ class AdminController extends Controller
             $user->save();
 
             if ($updated) {
-                echo "success";
+                echo "success_confirm";
             } else {
                 echo "error";
             }
@@ -163,7 +163,7 @@ class AdminController extends Controller
             $deposit->remark = 'Deposit Request Declined : ' . $deposit->amount;
             $deposit->save();
 
-            echo "success";
+            echo "success_decline";
         }
     }
 

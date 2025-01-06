@@ -204,7 +204,7 @@ use App\Models\User;
                             </a>
                             <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="javascript:void(0);" class="nav-link"
                                         onclick="window.location.href='{{ route('deposit_txn') }}'">
                                         <i class="far fa-circle nav-icon"></i>
@@ -217,7 +217,7 @@ use App\Models\User;
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Withdraw Transaction</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 {{-- <li class="nav-item">
                               <a href="javascript:void(0);" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

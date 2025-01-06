@@ -481,6 +481,9 @@
 				data: formData,
 				processData: false,
 				contentType: false,
+				beforeSend: function () {
+					Swal.fire({ icon: 'info', title: 'Uploading', text: 'Please wait...', showConfirmButton: false });
+				},
 				success: function (response) {
 					Swal.fire({
 						icon: response.icon,

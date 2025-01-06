@@ -29,11 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'api'], function () {
         Route::get('fetch-stock-data/{id}', [ApiController::class, 'fetchStockData']);
         Route::get('fetchstockinfo/{stocktype}', [ApiController::class, 'fetchstockinfo'])->name('fetchstockinfo');
-
-
-
-
-
     });
 
 
@@ -64,19 +59,29 @@ Route::middleware('auth')->group(function () {
     // Route::post('buy', [WatchlistController::class, 'buyStock'])->name('buy-stock');
     // Route::get('sell/{id}', [WatchlistController::class, 'sell'])->name('sell');
     // Route::post('sell', [WatchlistController::class, 'sellStock'])->name('sell-stock');
+
+
+
+    Route::get('admin/home', [AdminController::class, 'home'])->name('admin_home');
+    Route::get('admin/add-user', [AdminController::class, 'add_user'])->name('admin_add_user');
+    Route::post('admin/add-user', [AdminController::class, 'addUser'])->name("add-user-post");
+    Route::get('admin/add-admin', [AdminController::class, 'add_admin'])->name('admin_add_admin');
+    Route::post('admin/add-admin', [AdminController::class, 'addAdmin'])->name("add-admin-post");
+    Route::get('admin/all-admin', [AdminController::class, 'allAdmin'])->name("all-admin");
+    Route::get('admin/all-user', [AdminController::class, 'allUser'])->name("all-user");
+    Route::get('admin/user/{id}', [AdminController::class, 'user'])->name("user");
+    Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::post('/admin/settings/min-withdraw', [AdminController::class, 'updateMinWithdraw'])->name('settings.updateMinWithdraw');
+    Route::post('/admin/settings/min-recharge', [AdminController::class, 'updateMinRecharge'])->name('settings.updateMinRecharge');
+    Route::post('/admin/settings/withdraw-msg', [AdminController::class, 'updateWithdrawMsg'])->name('settings.updateWithdrawMsg');
+    Route::post('/admin/settings/deposit-msg', [AdminController::class, 'updateDepositMsg'])->name('settings.updateDepositMsg');
+    Route::post('/admin/settings/upi', [AdminController::class, 'updateUpi'])->name('settings.updateUpi');
+    Route::post('/admin/settings/withdraw-status', [AdminController::class, 'updateWithdrawStatus'])->name('settings.updateWithdrawStatus');
+    Route::post('/admin/settings/recharge-status', [AdminController::class, 'updateRechargeStatus'])->name('settings.updateRechargeStatus');
+    Route::post('/admin/settings/upi-status', [AdminController::class, 'updateUpiStatus'])->name('settings.updateUpiStatus');
     
-
-
-    Route::get('admin/home',[AdminController::class, 'home'])->name('admin_home');
-    Route::get('admin/add-user',[AdminController::class, 'add_user'])->name('admin_add_user');
-    Route::post('admin/add-user',[AdminController::class, 'addUser'])->name("add-user-post");
-    Route::get('admin/add-admin',[AdminController::class, 'add_admin'])->name('admin_add_admin');
-    Route::post('admin/add-admin',[AdminController::class, 'addAdmin'])->name("add-admin-post");
-    Route::get('admin/all-admin',[AdminController::class, 'allAdmin'])->name("all-admin");
-    Route::get('admin/all-user',[AdminController::class, 'allUser'])->name("all-user");
-    Route::get('admin/user/{id}',[AdminController::class, 'user'])->name("user");
     Route::post('admin/approve-deposit', [AdminController::class, 'approveDeposit'])->name('approve-deposit');
-Route::post('admin/approve-withdraw', [AdminController::class, 'approveWithdraw'])->name('approve-withdraw');
+    Route::post('admin/approve-withdraw', [AdminController::class, 'approveWithdraw'])->name('approve-withdraw');
 
     Route::post('/payment-link', [PaymentController::class, 'generatePaymentLink'])->name('payment-link');
     Route::get('deposit', [PaymentController::class, 'deposit'])->name('deposit');
@@ -86,13 +91,10 @@ Route::post('admin/approve-withdraw', [AdminController::class, 'approveWithdraw'
     Route::post('withdrawRef', [PaymentController::class, 'withdrawRef'])->name('withdrawRef');
     Route::get('bank-details', [PaymentController::class, 'bankDetails'])->name('bank-details');
     Route::post('bank-update', [PaymentController::class, 'updateBankDetails'])->name('update-bank-details');
-
-
-
 });
 
 
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
