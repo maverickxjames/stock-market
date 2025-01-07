@@ -57,13 +57,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" onclick="window.location.href='{{ route('withdraw') }}'">
                         <i class="material-symbols-outlined">credit_card</i>
                         <span class="nav-text">Withdraw</span>
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" onclick="window.location.href='{{ route('history') }}'">
                         <i class="material-symbols-outlined">History</i>
                         <span class="nav-text">History</span>
                     </a>

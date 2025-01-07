@@ -403,4 +403,13 @@ class PaymentController extends Controller
             ], 500);
         }
     }
+
+    public function history(Request $request): View
+    {
+        $user_id = Auth::id();
+        $deposits = DB::table('deposits')->where('userid', $user_id)->orderByDesc('id')->get();
+        $withdraws = DB::table('withdraws')->where('userid', $user_id)->orderByDesc('id')->get();
+
+        return view('history', compact('deposits', 'withdraws'));
+    }
 }

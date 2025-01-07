@@ -1,6 +1,7 @@
 @php
     $user = Auth::user();
     use App\Models\withdraw_mode;
+    use App\Models\setting;
 @endphp
 
 
@@ -411,10 +412,13 @@
     <!-- header end -->
 
     <div class="container mt-5">
+        @php
+            $settings=setting::where('id',1)->first();
+        @endphp
         <!-- Withdraw Notice Alert Box -->
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">Notice</h4>
-            <p>Minimum Withdraw is 200 INR</p>
+            <p>Minimum Withdraw is {{ $settings->minWithdraw }} INR</p>
             {{-- <p>You can place only 10 free Withdraw in a day. After that 1% TDS will be applied</p> --}}
         </div>
 
@@ -452,6 +456,7 @@
                 <?php
                                 // $paymentModes = payment_mode::all();
                                 $paymentModes=withdraw_mode::where('status',1)->get();
+                                
                                 foreach ($paymentModes as $row)
                                 {
                                 ?>
@@ -491,10 +496,10 @@
                 <ul class="condition-list">
                     <li>
                         <h5>Minimum Withdraw</h5>
-                        {{-- <p>Minimum Withdraw is
-                            <?= $setting['minWithdraw'] ?> INR
-                        </p> --}}
-                        <p>Minimum Withdraw is 200 INR</p>
+                        <p>Minimum Withdraw is
+                            <?= $settings['minWithdraw'] ?> INR
+                        </p>
+                        {{-- <p>Minimum Withdraw is 200 INR</p> --}}
                     </li>
                     <li>
                         <h5>Withdraw Frequency</h5>
@@ -566,6 +571,19 @@
                 });
                 return;
             }
+
+            <?php 
+			$settings=setting::where('id',1)->first();
+			?>
+            if (amount < {{ $settings->minWithdraw }}) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Minimum Withdraw is <?= $settings['minWithdraw'] ?> INR',
+                });
+                return;
+            }
+
 
             const paymentModeId = paymentMode.id;
 

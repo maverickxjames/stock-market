@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
     Route::post('withdrawRef', [PaymentController::class, 'withdrawRef'])->name('withdrawRef');
     Route::get('bank-details', [PaymentController::class, 'bankDetails'])->name('bank-details');
     Route::post('bank-update', [PaymentController::class, 'updateBankDetails'])->name('update-bank-details');
+    Route::get('history', [PaymentController::class, 'history'])->name('history');
 });
 
 

@@ -1024,6 +1024,21 @@
 		  </div>
 	</div>
 
+	<div class="container mt-5">
+        @php
+            $settings=setting::where('id',1)->first();
+        @endphp
+        <!-- Withdraw Notice Alert Box -->
+        <div class="alert alert-info" role="alert">
+            <p class="">Real Wallet : {{ $user->real_wallet }} INR</p>
+            <p>Withdraw Wallet : {{ $user->withdraw_wallet }} INR</p>
+            {{-- <p>You can place only 10 free Withdraw in a day. After that 1% TDS will be applied</p> --}}
+        </div>
+
+
+    </div>
+
+
 
 
         <div class="content-body">
