@@ -16,6 +16,7 @@ use PhpParser\Node\Stmt\TryCatch;
 use App\Models\withdraw;
 //imort settings model
 use App\Models\Setting;
+use GrahamCampbell\ResultType\Success;
 
 class AdminController extends Controller
 {
@@ -360,5 +361,19 @@ class AdminController extends Controller
         }
 
         return response()->json(['success' => false, 'message' => 'Failed to update UPI Status.']);
+    }
+
+    
+    public function addFund(Request $request, $userId)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+        ]);
+
+        $user = User::find($userId);
+        $user->real_wallet += $request->amount;
+        $user->save();
+
+        return response()->json(['success'=>true,'message' => 'Fund added successfully']);
     }
 }

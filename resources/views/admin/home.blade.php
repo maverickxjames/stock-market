@@ -62,8 +62,7 @@ use App\Models\User;
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -91,166 +90,7 @@ use App\Models\User;
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Admin Panel</a>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="./index.php" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-
-                                </p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user-shield"></i>
-                                <p>
-                                    Admin Manager
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('all-admin') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All Admin</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('admin_add_admin') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New Admin</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    User Manager
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('all-user') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All User</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('admin_add_user') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add User</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-exchange-alt"></i>
-                            <p>
-                              Transaction Manager
-                              <i class="right fas fa-angle-left"></i>
-                            </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-{{--                             
-                            <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link" onclick="window.location.href='{{ route('deposit_txn') }}'">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Deposit Transaction</p>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link" onclick="window.location.href='{{ route('withdraw_txn') }}'">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Withdraw Transaction</p>
-                              </a>
-                            </li> --}}
-                            {{-- <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Bonus</p>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="javascript:void(0);"  class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Penalty</p>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>History</p>
-                              </a>
-                            </li> --}}
-                          </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="dashboard" class="nav-link">
-                                <i class="nav-icon fas fa-globe"></i>
-
-                                <p>
-                                    Go to Website
-                                </p>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+        <x-adminsidebar />
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -354,8 +194,8 @@ use App\Models\User;
                                             style="font-size: 1.5rem; font-family:serif; font-weight:800px;">Recent
                                             Users
                                         </h1>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            data-card-widget="collapse" title="Collapse">
+                                        <button type="button" class="btn btn-danger btn-sm" data-card-widget="collapse"
+                                            title="Collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -380,29 +220,29 @@ use App\Models\User;
                                         </thead>
                                         <tbody>
                                             @php
-                                                $users = User::orderBy('created_at', 'DESC')->get();
+                                            $users = User::orderBy('created_at', 'DESC')->get();
                                             @endphp
                                             @foreach ($users as $user)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $user->user_id }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ $user->username }}</td>
-                                                    <td>{{ $user->demo_wallet }}</td>
-                                                    <td>{{ $user->created_at }}</td>
-                                                    <td>
-                                                        @if ($user->is_dummy == 1)
-                                                            <span class="badge badge-success">Yes</span>
-                                                        @else
-                                                            <span class="badge badge-danger">No</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('user', $user->id) }}"
-                                                            class="btn btn-primary">View</a>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $user->user_id }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->username }}</td>
+                                                <td>{{ $user->demo_wallet }}</td>
+                                                <td>{{ $user->created_at }}</td>
+                                                <td>
+                                                    @if ($user->is_dummy == 1)
+                                                    <span class="badge badge-success">Yes</span>
+                                                    @else
+                                                    <span class="badge badge-danger">No</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('user', $user->id) }}"
+                                                        class="btn btn-primary">View</a>
+                                                </td>
+                                            </tr>
                                             @endforeach
                                         </tbody>
                                         <tfoot>
@@ -426,8 +266,8 @@ use App\Models\User;
                                         <h3 class="card-title"
                                             style="font-size: 1.5rem; font-family:serif; font-weight:800px;">Recent
                                             Deposit Transition</h3>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            data-card-widget="collapse" title="Collapse">
+                                        <button type="button" class="btn btn-danger btn-sm" data-card-widget="collapse"
+                                            title="Collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -453,33 +293,33 @@ use App\Models\User;
                                         <tbody>
                                             @php
 
-                                                $deposit = Deposit::where('status', 0)
-                                                    ->orderBy('created_at', 'DESC')
-                                                    ->get();
+                                            $deposit = Deposit::where('status', 0)
+                                            ->orderBy('created_at', 'DESC')
+                                            ->get();
                                             @endphp
                                             @foreach ($deposit as $row)
-                                                @php
-                                                    $user = User::where('id', $row->userid)->first();
-                                                @endphp
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $user->user_id }}</td>
-                                                    <td>{{ $row->order_id }}</td>
-                                                    <td>{{ $row->amount }}</td>
-                                                    <td>{{ $row->upi }}</td>
-                                                    <td>{{ $row->remark }}</td>
-                                                    <td>{{ $row->utr }}</td>
-                                                    <td>{{ $row->created_at }}</td>
-                                                    <td>
-                                                        <form>
-                                                            @csrf
-                                                            <button class="btn btn-success"
-                                                                onclick="depositApprove('{{ $row->order_id }}','confirm')">Approve</button>
-                                                            <button class="btn btn-warning"
-                                                                onclick="depositApprove('{{ $row->order_id }}','decline')">Decline</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
+                                            @php
+                                            $user = User::where('id', $row->userid)->first();
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $user->user_id }}</td>
+                                                <td>{{ $row->order_id }}</td>
+                                                <td>{{ $row->amount }}</td>
+                                                <td>{{ $row->upi }}</td>
+                                                <td>{{ $row->remark }}</td>
+                                                <td>{{ $row->utr }}</td>
+                                                <td>{{ $row->created_at }}</td>
+                                                <td>
+                                                    <form>
+                                                        @csrf
+                                                        <button class="btn btn-success"
+                                                            onclick="depositApprove('{{ $row->order_id }}','confirm')">Approve</button>
+                                                        <button class="btn btn-warning"
+                                                            onclick="depositApprove('{{ $row->order_id }}','decline')">Decline</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -499,8 +339,8 @@ use App\Models\User;
                                         <h3 class="card-title"
                                             style="font-size: 1.5rem; font-family:serif; font-weight:800px;">Recent
                                             Withdraw Transition</h3>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            data-card-widget="collapse" title="Collapse">
+                                        <button type="button" class="btn btn-danger btn-sm" data-card-widget="collapse"
+                                            title="Collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -525,41 +365,41 @@ use App\Models\User;
                                         </thead>
                                         <tbody>
                                             @php
-                                                $withdraw = Withdraw::where('status', 0)
-                                                    ->orderBy('created_at', 'DESC')
-                                                    ->get();
+                                            $withdraw = Withdraw::where('status', 0)
+                                            ->orderBy('created_at', 'DESC')
+                                            ->get();
                                             @endphp
 
                                             @foreach ($withdraw as $row)
-                                                @php
-                                                    $user = User::where('id', $row->userid)->first();
-                                                    $paymentInfo = json_decode($row->payment_info, true);
-                                                    $paymentMethod =
-                                                        isset($paymentInfo['is_upi']) && $paymentInfo['is_upi']
-                                                            ? $paymentInfo['upi']
-                                                            : (isset($paymentInfo['is_bank']) && $paymentInfo['is_bank']
-                                                                ? $paymentInfo['bank']
-                                                                : 'N/A');
-                                                @endphp
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $user->user_id }}</td>
-                                                    <td>{{ $row->txnid }}</td>
-                                                    <td>{{ $row->amount }}</td>
-                                                    <td>{{ $row->type }}</td>
-                                                    <td>{{ $paymentMethod }}</td>
-                                                    <td>{{ $row->remark }}</td>
-                                                    <td>{{ $row->created_at }}</td>
-                                                    <td>
-                                                        <form>
-                                                            @csrf
-                                                            <button class="btn btn-success"
-                                                                onclick="withdrawApprove('{{ $row->txnid }}','confirm')">Approve</button>
-                                                            <button class="btn btn-warning"
-                                                                onclick="withdrawApprove('{{ $row->txnid }}','decline')">Decline</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
+                                            @php
+                                            $user = User::where('id', $row->userid)->first();
+                                            $paymentInfo = json_decode($row->payment_info, true);
+                                            $paymentMethod =
+                                            isset($paymentInfo['is_upi']) && $paymentInfo['is_upi']
+                                            ? $paymentInfo['upi']
+                                            : (isset($paymentInfo['is_bank']) && $paymentInfo['is_bank']
+                                            ? $paymentInfo['bank']
+                                            : 'N/A');
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $user->user_id }}</td>
+                                                <td>{{ $row->txnid }}</td>
+                                                <td>{{ $row->amount }}</td>
+                                                <td>{{ $row->type }}</td>
+                                                <td>{{ $paymentMethod }}</td>
+                                                <td>{{ $row->remark }}</td>
+                                                <td>{{ $row->created_at }}</td>
+                                                <td>
+                                                    <form>
+                                                        @csrf
+                                                        <button class="btn btn-success"
+                                                            onclick="withdrawApprove('{{ $row->txnid }}','confirm')">Approve</button>
+                                                        <button class="btn btn-warning"
+                                                            onclick="withdrawApprove('{{ $row->txnid }}','decline')">Decline</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                             @endforeach
 
                                         </tbody>

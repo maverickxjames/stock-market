@@ -2,8 +2,8 @@
 $user = Auth::user();
 
 //import models of deposit and withdraw
-use App\Models\Deposit;
-use App\Models\Withdraw;
+use App\Models\deposit;
+use App\Models\withdraw;
 use App\Models\User;
 
 ?>
@@ -90,167 +90,7 @@ use App\Models\User;
         </nav>
         <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Admin Panel</a>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="./index.php" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-
-                                </p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user-shield"></i>
-                                <p>
-                                    Admin Manager
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('all-admin') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All Admin</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('admin_add_admin') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New Admin</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    User Manager
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('all-user') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All User</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link"
-                                        onclick="window.location.href='{{ route('admin_add_user') }}'">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add User</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-exchange-alt"></i>
-                            <p>
-                              Transaction Manager
-                              <i class="right fas fa-angle-left"></i>
-                            </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                            
-                            <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link" onclick="window.location.href='{{ route('deposit_txn') }}'">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Deposit Transaction</p>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link" onclick="window.location.href='{{ route('withdraw_txn') }}'">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Withdraw Transaction</p>
-                              </a>
-                            </li>
-                            {{-- <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Bonus</p>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="javascript:void(0);"  class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Penalty</p>
-                              </a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="javascript:void(0);" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>History</p>
-                              </a>
-                            </li> --}}
-                          </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="dashboard" class="nav-link">
-                                <i class="nav-icon fas fa-globe"></i>
-
-                                <p>
-                                    Go to Website
-                                </p>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+        <x-adminsidebar />
 
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -285,10 +125,10 @@ use App\Models\User;
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Mobile No.</th>
-                                                <th>Order ID</th>
+                                                <th>User ID</th>
+                                                <th>Transaction ID</th>
                                                 <th>Amount</th>
-                                                <th>Type</th>
+                                                <th>Proof</th>
                                                 <th>UPI</th>
                                                 <!-- <th>Remark</th> -->
                                                 <th>UTR</th>
@@ -314,7 +154,14 @@ use App\Models\User;
                                                     <td>{{ $user->user_id }}</td>
                                                     <td>{{ $row->order_id }}</td>
                                                     <td>{{ $row->amount }}</td>
-                                                    <td>{{ $row->type }}</td>
+                                                    <td>
+                                                        <img 
+                                                            src="{{ asset('storage/payment_ss/'.$row->payment_ss) }}" 
+                                                            alt="proof" 
+                                                            style="width: 100px; height: 100px; cursor: pointer;" 
+                                                            onclick="showFullImage('{{ asset('storage/payment_ss/'.$row->payment_ss) }}')">
+                                                    </td>
+
                                                     <td>{{ $row->upi }}</td>
                                                     <!-- <td>{{ $row->remark }}</td> -->
                                                     <td>{{ $row->utr }}</td>
@@ -345,10 +192,10 @@ use App\Models\User;
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Mobile No.</th>
+                                                <th>User ID</th>
                                                 <th>Order ID</th>
                                                 <th>Amount</th>
-                                                <th>Type</th>
+                                                <th>Proof</th>
                                                 <th>UPI</th>
                                                 <th>Remark</th> 
                                                 <th>UTR</th>
@@ -373,7 +220,14 @@ use App\Models\User;
                                                     <td>{{ $user->user_id }}</td>
                                                     <td>{{ $row->order_id }}</td>
                                                     <td>{{ $row->amount }}</td>
-                                                    <td>{{ $row->type }}</td>
+                                                    <td>
+                                                        <img 
+                                                            src="{{ asset('storage/payment_ss/'.$row->payment_ss) }}" 
+                                                            alt="proof" 
+                                                            style="width: 100px; height: 100px; cursor: pointer;" 
+                                                            onclick="showFullImage('{{ asset('storage/payment_ss/'.$row->payment_ss) }}')">
+                                                    </td>
+
                                                     <td>{{ $row->upi }}</td>
                                                      <td>{{ $row->remark }}</td> 
                                                     <td>{{ $row->utr }}</td>
@@ -397,7 +251,7 @@ use App\Models\User;
                                                 <th>Mobile No.</th>
                                                 <th>Order ID</th>
                                                 <th>Amount</th>
-                                                <th>Type</th>
+                                                <th>Proof</th>
                                                 <th>UPI</th>
                                                 <th>Remark</th> 
                                                 <th>UTR</th>
@@ -420,7 +274,14 @@ use App\Models\User;
                                                     <td>{{ $user->user_id }}</td>
                                                     <td>{{ $row->order_id }}</td>
                                                     <td>{{ $row->amount }}</td>
-                                                    <td>{{ $row->type }}</td>
+                                                    <td>
+                                                        <img 
+                                                            src="{{ asset('storage/payment_ss/'.$row->payment_ss) }}" 
+                                                            alt="proof" 
+                                                            style="width: 100px; height: 100px; cursor: pointer;" 
+                                                            onclick="showFullImage('{{ asset('storage/payment_ss/'.$row->payment_ss) }}')">
+                                                    </td>
+                                                    
                                                     <td>{{ $row->upi }}</td>
                                                   <td>{{ $row->remark }}</td> 
                                                     <td>{{ $row->utr }}</td>
@@ -654,6 +515,18 @@ use App\Models\User;
     }
 </script>
 
+
+<script>
+    function showFullImage(imageUrl) {
+        Swal.fire({
+            title: 'Proof Image',
+            imageUrl: imageUrl,
+            imageAlt: 'Proof Image',
+            width: 'auto',
+            confirmButtonText: 'Close',
+        });
+    }
+</script>
 
 
 </body>

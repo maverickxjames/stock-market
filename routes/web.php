@@ -62,14 +62,17 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('admin/home', [AdminController::class, 'home'])->name('admin_home');
+    Route::get('admin/home', [AdminController::class, 'home'])->name('admin.home');
     Route::get('admin/add-user', [AdminController::class, 'add_user'])->name('admin_add_user');
     Route::post('admin/add-user', [AdminController::class, 'addUser'])->name("add-user-post");
     Route::get('admin/add-admin', [AdminController::class, 'add_admin'])->name('admin_add_admin');
     Route::post('admin/add-admin', [AdminController::class, 'addAdmin'])->name("add-admin-post");
     Route::get('admin/all-admin', [AdminController::class, 'allAdmin'])->name("all-admin");
     Route::get('admin/all-user', [AdminController::class, 'allUser'])->name("all-user");
+    Route::post('admin/add-fund/{userId}', [AdminController::class, 'addFund'])->name("add-fund");
     Route::get('admin/user/{id}', [AdminController::class, 'user'])->name("user");
+    Route::get('admin/deposits', [AdminController::class, 'depositTxn'])->name('admin.deposit_txn');
+    Route::get('admin/withdraws', [AdminController::class, 'withdrawTXn'])->name('admin.withdraw_txn');
     Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::post('/admin/settings/min-withdraw', [AdminController::class, 'updateMinWithdraw'])->name('settings.updateMinWithdraw');
     Route::post('/admin/settings/min-recharge', [AdminController::class, 'updateMinRecharge'])->name('settings.updateMinRecharge');

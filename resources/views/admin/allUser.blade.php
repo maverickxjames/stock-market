@@ -27,6 +27,37 @@
   <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
+  {{-- meta csrf --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <style>
+
+.wallet-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 18px;
+    }
+
+    .add-fund-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .add-fund-button:hover {
+      background-color: #0056b3;
+    }
+
+    .add-fund-button:active {
+      background-color: #003f8a;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -174,123 +205,7 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-      
-           
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-         
-          <li class="nav-header">EXAMPLES</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>
-                Calendar
-                <span class="badge badge-info right">2</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Gallery
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/kanban.html" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Kanban Board
-              </p>
-            </a>
-          </li>
-         
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+  <x-adminsidebar />
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -339,7 +254,10 @@
                       <td>{{$user->name}}</td>
                       <td>{{$user->email}}</td>
                       <td>{{$user->username}}</td>
-                      <td>{{$user->demo_wallet}}</td>
+                      <td class="wallet-container">
+                        ₹<span class="wallet-balance" >{{$user->real_wallet}}</span>
+                        <button class="add-fund-button" onclick="addFund({{ $user->id }})">Add Fund</button>
+                      </td>
                       <td>{{$user->created_at}}</td>
                       <td>
                         @if($user->is_dummy == 1)
@@ -455,6 +373,66 @@
       "responsive": true,
     });
   });
+
+
+
+  
 </script>
+\
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  function addFund(userId) {
+  Swal.fire({
+    title: 'Add Funds',
+    input: 'number',
+    inputLabel: 'Enter the amount you want to add:',
+    inputPlaceholder: 'Amount',
+    showCancelButton: true,
+    confirmButtonText: 'Add',
+    cancelButtonText: 'Cancel',
+    inputValidator: (value) => {
+      if (!value || value <= 0) {
+        return 'Please enter a valid amount';
+      }
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const amount = parseFloat(result.value);
+
+      // Use AJAX to send the request
+      $.ajax({
+        url: `/admin/add-fund/${userId}`, // Laravel route
+        type: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: { amount: amount },
+        beforeSend: function () {
+					Swal.fire({ icon: 'info', title: 'Processing', text: 'Please wait...', showConfirmButton: false });
+				},
+        success: function (response) {
+          console.log(response);
+          if (response.success) {
+            Swal.fire('Success', `Successfully added ₹${amount} to the wallet.`, 'success').then(() => {
+                location.reload();
+            });
+           
+          } else {
+            Swal.fire('Error', response.message || 'Something went wrong!', 'error');
+          }
+        },
+        error: function (error) {
+          console.error('Error:', error);
+          Swal.fire('Error', 'Unable to process the request.', 'error');
+        }
+      });
+    }
+  });
+}
+
+</script>
+
 </body>
 </html>
