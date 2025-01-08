@@ -1231,46 +1231,57 @@ use App\Providers\Helper;
                                         <th class="text-end">REMOVE</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php 
-                                            $i = 1;
-                                                foreach($mergedData as $watchlist){
-                                                    if($watchlist['script_symbol'] == 'NSEFUT'){
-                                                        ?>
-                                    <tr>
-                                        <td>
-                                            {{ $i }}
-                                        </td>
-                                        <td id="symbol{{ $i }}">{{ $watchlist['symbol'] }}</td>
-                                        <td id="bid{{ $i }}">24,775.00</td>
-                                        <td id="ask{{ $i }}">24,782.00</td>
-                                        <td id="ltp{{ $i }}">24,775.00</td>
-                                        <td id="ch{{ $i }}">0.04</td>
-                                        <td id="badge{{ $i }}">
-                                            <span class="badge light badge-danger">
-                                                <i class="fa fa-circle text-danger me-1"></i>
-                                                10.65
-                                            </span>
-                                        </td>
-                                        <td id="high{{ $i }}">24,844.90</td>
-                                        <td id="low{{ $i }}">24,844.90</td>
-                                        <td id="open{{ $i }}">24,844.90</td>
-                                        <td id="close{{ $i }}">24,844.90</td>
-                                        <td>
-                                            <button onclick="removeWatchlist({{ $watchlist['id'] }})"
-                                                class="btn btn-danger">Close</button>
-                                        </td>
-
-                                    </tr>
-                                    <?php
-                                                        $i++;
+                                <?php 
+                                
+                                if($mergedData == null){
+                                    echo 'No watchlist items found.';
+                                }else{
+                                    ?>
+                                    <tbody>
+                                        <?php 
+                                                $i = 1;
+                                                    foreach($mergedData as $watchlist){
+                                                        if($watchlist['script_symbol'] == 'NSEFUT'){
+                                                            ?>
+                                        <tr>
+                                            <td>
+                                                {{ $i }}
+                                            </td>
+                                            <td id="symbol{{ $i }}">{{ $watchlist['symbol'] }}</td>
+                                            <td id="bid{{ $i }}">24,775.00</td>
+                                            <td id="ask{{ $i }}">24,782.00</td>
+                                            <td id="ltp{{ $i }}">24,775.00</td>
+                                            <td id="ch{{ $i }}">0.04</td>
+                                            <td id="badge{{ $i }}">
+                                                <span class="badge light badge-danger">
+                                                    <i class="fa fa-circle text-danger me-1"></i>
+                                                    10.65
+                                                </span>
+                                            </td>
+                                            <td id="high{{ $i }}">24,844.90</td>
+                                            <td id="low{{ $i }}">24,844.90</td>
+                                            <td id="open{{ $i }}">24,844.90</td>
+                                            <td id="close{{ $i }}">24,844.90</td>
+                                            <td>
+                                                <button onclick="removeWatchlist({{ $watchlist['id'] }})"
+                                                    class="btn btn-danger">Close</button>
+                                            </td>
+    
+                                        </tr>
+                                        <?php
+                                                            $i++;
+                                                        }
+                                                        
                                                     }
-                                                    
-                                                }
-                                                ?>
-
-
-                                </tbody>
+                                                    ?>
+    
+    
+                                    </tbody>
+                                    <?php 
+                                }
+                                
+                                ?>
+                                
                             </table>
                         </div>
                     </div>

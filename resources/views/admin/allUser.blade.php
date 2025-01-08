@@ -267,8 +267,7 @@
                         @endif
                       </td>
                       <td>
-                        <a href="#" class="btn btn-warning">View</a>
-                        {{-- <a href="{{route('admin.viewUser', $user->id)}}" class="btn btn-warning">View</a> --}}
+                        <a href="{{route('admin.viewUser', $user->id)}}" class="btn btn-warning">View</a>
                         </td>
                     </tr>
                     @endforeach

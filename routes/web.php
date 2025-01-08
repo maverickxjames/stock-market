@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('admin/all-admin', [AdminController::class, 'allAdmin'])->name("all-admin");
     Route::get('admin/all-user', [AdminController::class, 'allUser'])->name("all-user");
     Route::post('admin/add-fund/{userId}', [AdminController::class, 'addFund'])->name("add-fund");
-    Route::get('admin/user/{id}', [AdminController::class, 'user'])->name("user");
+    Route::get('admin/user/{id}', [AdminController::class, 'user'])->name("admin.viewUser");
     Route::get('admin/deposits', [AdminController::class, 'depositTxn'])->name('admin.deposit_txn');
     Route::get('admin/withdraws', [AdminController::class, 'withdrawTXn'])->name('admin.withdraw_txn');
     Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
