@@ -64,6 +64,7 @@ use App\Providers\Helper;
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
     <!-- Style css -->
     <link class="main-css" href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
 
@@ -1164,7 +1165,7 @@ use App\Providers\Helper;
                     }
                 }
             } else {
-                echo 'No watchlist items found.';
+                $mergedData = [];
             }
             
             ?>
@@ -1201,18 +1202,118 @@ use App\Providers\Helper;
                 </div>
             </div>
 
+            <?php
+            if($mergedData == []) {
+                $i = 0;
+                
+            }else{
+                ?>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">NSEFUT</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="display min-w850">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                S.No
+                                            </th>
+                                            <th>NSE FUTURE Sym</th>
+                                            <th>BID RATE</th>
+                                            <th>ASK RATE</th>
+                                            <th>LTP</th>
+                                            <th>CHANGE %</th>
+                                            <th>NET CHANGE</th>
+                                            <th>HIGH</th>
+                                            <th>LOW</th>
+                                            <th>OPEN</th>
+                                            <th>CLOSE</th>
+                                            <th class="text-end">ACTION</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php 
+                                                        $i = 1;
+                                                            foreach($mergedData as $watchlist){
+                                                                if($watchlist['script_symbol'] == 'NSEFUT'){
+                                                                    ?>
+                                        <tr>
+                                            <td>
+                                                {{ $i }}
+                                            </td>
+                                            <td id="symbol{{ $i }}">{{ $watchlist['symbol'] }}</td>
+                                            <td id="bid{{ $i }}">0</td>
+                                            <td id="ask{{ $i }}">0</td>
+                                            <td id="ltp{{ $i }}">0</td>
+                                            <td id="ch{{ $i }}">0</td>
+                                            <td id="badge{{ $i }}">
+                                                <span class="badge light badge-danger">
+                                                    <i class="fa fa-circle text-danger me-1"></i>
+                                                    0
+                                                </span>
+                                            </td>
+                                            <td id="high{{ $i }}">0</td>
+                                            <td id="low{{ $i }}">0</td>
+                                            <td id="open{{ $i }}">0</td>
+                                            <td id="close{{ $i }}">0</td>
+                                            <td>
+
+                                                <i onclick="removeWatchlist({{ $watchlist['id'] }})" style="cursor: pointer"
+                                                    class="bi bi-x-square-fill text-danger"></i>
+                                                &nbsp;
+                                                <i style="cursor: pointer"
+                                                    class="bi bi-bar-chart-line-fill text-success"></i>
+                                            </td>
+
+                                        </tr>
+                                        <?php
+                                                                    $i++;
+                                                                }
+                                                                
+                                                            }
+                                                            ?>
+
+
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            <?php 
+            }
+
+            if($mergedData == []) {
+                $i = 0;
+
+            }else{
+                ?>
             <div class="col-12">
-
-
-
-
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">NSEFUT</h4>
+                        <h4 class="card-title">NSEOPT</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example" class="display min-w850">
+                            <table id="example2" class="display min-w850">
                                 <thead>
                                     <tr>
                                         <th>
@@ -1228,70 +1329,65 @@ use App\Providers\Helper;
                                         <th>LOW</th>
                                         <th>OPEN</th>
                                         <th>CLOSE</th>
-                                        <th class="text-end">REMOVE</th>
+                                        <th class="text-end">ACTION</th>
                                     </tr>
                                 </thead>
-                                <?php 
-                                
-                                if($mergedData == null){
-                                    echo 'No watchlist items found.';
-                                }else{
-                                    ?>
-                                    <tbody>
-                                        <?php 
+
+                                <tbody>
+                                    <?php 
                                                 $i = 1;
                                                     foreach($mergedData as $watchlist){
-                                                        if($watchlist['script_symbol'] == 'NSEFUT'){
+                                                        if($watchlist['script_symbol'] == 'NSEOPT'){
                                                             ?>
-                                        <tr>
-                                            <td>
-                                                {{ $i }}
-                                            </td>
-                                            <td id="symbol{{ $i }}">{{ $watchlist['symbol'] }}</td>
-                                            <td id="bid{{ $i }}">24,775.00</td>
-                                            <td id="ask{{ $i }}">24,782.00</td>
-                                            <td id="ltp{{ $i }}">24,775.00</td>
-                                            <td id="ch{{ $i }}">0.04</td>
-                                            <td id="badge{{ $i }}">
-                                                <span class="badge light badge-danger">
-                                                    <i class="fa fa-circle text-danger me-1"></i>
-                                                    10.65
-                                                </span>
-                                            </td>
-                                            <td id="high{{ $i }}">24,844.90</td>
-                                            <td id="low{{ $i }}">24,844.90</td>
-                                            <td id="open{{ $i }}">24,844.90</td>
-                                            <td id="close{{ $i }}">24,844.90</td>
-                                            <td>
-                                                <button onclick="removeWatchlist({{ $watchlist['id'] }})"
-                                                    class="btn btn-danger">Close</button>
-                                            </td>
-    
-                                        </tr>
-                                        <?php
+                                    <tr>
+                                        <td>
+                                            {{ $i }}
+                                        </td>
+                                        <td id="symbol{{ $i }}">{{ $watchlist['symbol'] }}</td>
+                                        <td id="bid{{ $i }}">0</td>
+                                        <td id="ask{{ $i }}">0</td>
+                                        <td id="ltp{{ $i }}">0</td>
+                                        <td id="ch{{ $i }}">0</td>
+                                        <td id="badge{{ $i }}">
+                                            <span class="badge light badge-danger">
+                                                <i class="fa fa-circle text-danger me-1"></i>
+                                                0
+                                            </span>
+                                        </td>
+                                        <td id="high{{ $i }}">0</td>
+                                        <td id="low{{ $i }}">0</td>
+                                        <td id="open{{ $i }}">0</td>
+                                        <td id="close{{ $i }}">0</td>
+                                        <td>
+
+                                            <i onclick="removeWatchlist({{ $watchlist['id'] }})" style="cursor: pointer"
+                                                class="bi bi-x-square-fill text-danger"></i>
+                                            &nbsp;
+                                            <i style="cursor: pointer"
+                                                class="bi bi-bar-chart-line-fill text-success"></i>
+                                        </td>
+
+                                    </tr>
+                                    <?php
                                                             $i++;
                                                         }
                                                         
                                                     }
                                                     ?>
-    
-    
-                                    </tbody>
-                                    <?php 
-                                }
-                                
-                                ?>
-                                
+
+
+                                </tbody>
+
+
                             </table>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
+            </div>
+            <?php 
+            }
+            
+            ?>
 
 
 
@@ -1299,6 +1395,10 @@ use App\Providers\Helper;
 
 
             </div>
+
+
+
+
 
         </div>
 
@@ -1384,6 +1484,26 @@ use App\Providers\Helper;
             $('#searchable3').select2({
                 placeholder: "Search and select a state"
             });
+            $('#callPutSelect').select2({
+                placeholder: "Search and select a state"
+            });
+            $('#expiry').select2({
+                placeholder: "Search and select a state"
+            });
+
+            // example2 datatable 
+            $('#example2').DataTable({
+                "pagingType": "full_numbers",
+                "searching": false,
+                "lengthChange": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false,
+                "responsive": true,
+                "scrollX": true
+            });
+
+
         });
     </script>
 
@@ -1404,7 +1524,7 @@ use App\Providers\Helper;
                         document.getElementById('bid'.concat(num)).innerText = event.watchlist.data[ss].depth.buy[0].price;
                         document.getElementById('ask'.concat(num)).innerText = event.watchlist.data[ss].depth.sell[0].price;
                         document.getElementById('ltp'.concat(num)).innerText = event.watchlist.data[ss].last_price;
-                        document.getElementById('ch'.concat(num)).innerText = (event.watchlist.data[ss].net_change)/100;
+                        document.getElementById('ch'.concat(num)).innerText = parseFloat(event.watchlist.data[ss].net_change).toFixed(2);
                         document.getElementById('high'.concat(num)).innerText = event.watchlist.data[ss].ohlc.high;
                         document.getElementById('low'.concat(num)).innerText = event.watchlist.data[ss].ohlc.low;
                         document.getElementById('open'.concat(num)).innerText = event.watchlist.data[ss].ohlc.open;

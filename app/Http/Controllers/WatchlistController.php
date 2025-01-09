@@ -98,6 +98,22 @@ class WatchlistController extends Controller
             'strike' => 'nullable|numeric',                     // Strike is optional but must be a number
         ]);
 
+        $isExists = Watchlist::where('userid', auth()->id())
+            ->where('script_id', $request->segment)
+            ->where('script_name', $request->script)
+            ->where('script_expiry', $request->expiry)
+            ->where('call_put', $request->callPut)
+            ->where('strike_price', $request->strike)
+            ->exists();
+        
+        if ($isExists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Watchlist entry already exists.',
+            ], 409);
+        }
+
+
         // Return validation errors, if any
         if ($validator->fails()) {
             return response()->json([
